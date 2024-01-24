@@ -72,6 +72,10 @@ compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-mani
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 
+## Firebase
+firebase-bom = "com.google.firebase:firebase-bom:32.7.1"
+firebase-auth = { module = "com.google.firebase:firebase-auth-ktx" }
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }

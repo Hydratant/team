@@ -75,6 +75,9 @@ dependencies {
     implementation(libs.room.runtime)
     kapt(libs.room.compiler)
 
+    // Firebase
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.auth)
     // Unit Test
     testImplementation(libs.bundles.unit.test)
 
