@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.hilt)
+    alias(libs.plugins.google.services)
 }
 
 android {
@@ -77,7 +78,7 @@ dependencies {
 
     // Firebase
     implementation(platform(libs.firebase.bom))
-    implementation(libs.firebase.auth)
+    implementation(libs.bundles.firebase)
     // Unit Test
     testImplementation(libs.bundles.unit.test)
 

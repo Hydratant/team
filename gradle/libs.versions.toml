@@ -2,6 +2,9 @@
 ## Plugin
 androidGradlePlugin = "8.2.1"
 kotlin = "1.9.20"
+googleServices = "4.4.0"
+
+
 
 ## Android
 androidxCore = "1.12.0"
@@ -75,13 +78,14 @@ room-compiler = { group = "androidx.room", name = "room-compiler", version.ref =
 ## Firebase
 firebase-bom = "com.google.firebase:firebase-bom:32.7.1"
 firebase-auth = { module = "com.google.firebase:firebase-auth-ktx" }
+firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
-
+google-services = { id = "com.google.gms.google-services", version.ref = "googleServices" }
 
 [bundles]
 ## AndroidX
@@ -90,6 +94,8 @@ android = ["androidx-core", "androidx-lifecycle-runtime", "androidx-activity-com
 compose = ["compose-ui-ui", "compose-ui-graphics", "compose-ui-tooling-preview", "compose-material3"]
 ## Hilt
 hilt = ["hilt-android", "hilt-navigation-compose"]
+## Firebase
+firebase = ["firebase-auth", "firebase-analytics"]
 ## Unit Test
 unit-test = ["junit"]
 ## AndroidTest
