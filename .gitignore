@@ -57,6 +57,7 @@ baseketball-team
 *.jks
 *.keystore
 *.pepk
+keystore.properties
 
 # External native build folder generated in Android Studio 2.2 and later
 .externalNativeBuild
