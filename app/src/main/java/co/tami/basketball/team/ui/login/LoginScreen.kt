@@ -17,6 +17,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import co.tami.basketball.team.R
 import co.tami.basketball.team.ui.common.DarkLightModePreview
 import co.tami.basketball.team.ui.common.SystemThemeSurface
@@ -24,7 +25,8 @@ import co.tami.basketball.team.ui.common.SystemThemeSurface
 
 @Composable
 fun LoginScreen(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    vm: LoginViewModel = hiltViewModel()
 ) {
     val id = remember {
         mutableStateOf("")
