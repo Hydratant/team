@@ -1,5 +1,6 @@
 package co.tami.basketball.team.ui.login
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -29,6 +30,7 @@ fun LoginScreen(
 ) {
     val email = vm.email.collectAsState()
     val password = vm.password.collectAsState()
+    val isVisibilityPassword = vm.isVisibilityPassword.collectAsState()
 
     Column(
         modifier = modifier.padding(
@@ -43,6 +45,10 @@ fun LoginScreen(
             })
         PasswordOutlinedTextField(
             password = password.value,
+            isVisibilityPassword = isVisibilityPassword.value,
+            onVisibilityClick = { isVisibilityPassword ->
+                vm.isVisibilityPassword(isVisibilityPassword)
+            },
             onValueChange = { password: String ->
                 vm.onPasswordValueChange(password)
             })
@@ -72,11 +78,27 @@ fun EmailOutlinedTextField(
 @Composable
 fun PasswordOutlinedTextField(
     password: String,
+    isVisibilityPassword: Boolean,
     onValueChange: (String) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onVisibilityClick: ((Boolean) -> Unit)
 ) {
     val label = "Password"
     val placeHolder = "Please Enter Your Password"
+
+    val iconResId =
+        if (isVisibilityPassword)
+            R.drawable.ic_visibility_off_24dp
+        else
+            R.drawable.ic_visibility_24dp
+
+
+    val visualTransformation =
+        if (isVisibilityPassword)
+            VisualTransformation.None
+        else
+            PasswordVisualTransformation()
+
 
     BaseOutlinedTextField(
         password,
@@ -85,10 +107,13 @@ fun PasswordOutlinedTextField(
         KeyboardType.Password,
         onValueChange,
         modifier,
-        visualTransformation = PasswordVisualTransformation(),
+        visualTransformation = visualTransformation,
         trailingIcon = {
             Icon(
-                imageVector = ImageVector.vectorResource(id = R.drawable.ic_visibility_24dp),
+                modifier = Modifier.clickable {
+                    onVisibilityClick.invoke(isVisibilityPassword.not())
+                },
+                imageVector = ImageVector.vectorResource(id = iconResId),
                 contentDescription = null
             )
         }

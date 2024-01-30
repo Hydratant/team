@@ -17,6 +17,8 @@ class LoginViewModel @Inject constructor() : ViewModel() {
     private val _password = MutableStateFlow("")
     val password: StateFlow<String> get() = _password
 
+    private val _isVisibilityPassword = MutableStateFlow(false)
+    val isVisibilityPassword: StateFlow<Boolean> get() = _isVisibilityPassword
 
     fun onEmailValueChange(email: String) {
         _email.value = email
@@ -24,6 +26,10 @@ class LoginViewModel @Inject constructor() : ViewModel() {
 
     fun onPasswordValueChange(password: String) {
         _password.value = password
+    }
+
+    fun isVisibilityPassword(isVisibility: Boolean) {
+        _isVisibilityPassword.value = isVisibility
     }
 
 }
