@@ -20,13 +20,7 @@ class LoginDataSourceImpl(
             .addOnSuccessListener { authResult: AuthResult ->
                 authResult.user?.let { firebaseUser: FirebaseUser ->
                     Timber.i("FirebaseAuth Login Success : ${firebaseUser.uid}")
-
-                    val userData = UserData(
-                        firebaseUser.uid,
-                        firebaseUser.displayName ?: "",
-                        firebaseUser.email ?: ""
-                    )
-                    continuation.resume(userData)
+                    continuation.resume(firebaseUser.toUserData())
                 } ?: continuation.resumeWithException(Exception("login User is Null"))
 
             }.addOnFailureListener { exception: Exception ->
