@@ -8,6 +8,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -28,25 +29,25 @@ fun LoginScreen(
     modifier: Modifier = Modifier,
     vm: LoginViewModel = hiltViewModel()
 ) {
-    val id = remember {
-        mutableStateOf("")
-    }
+    val email = vm.email.collectAsState()
+    val password = vm.password.collectAsState()
 
-    val pwd = remember {
-        mutableStateOf("")
-    }
     Column(
         modifier = modifier.padding(
             horizontal = 16.dp,
             vertical = 20.dp
         )
     ) {
-        EmailOutlinedTextField(email = id.value, { text: String ->
-            id.value = text
-        })
-        PasswordOutlinedTextField(password = pwd.value, { password: String ->
-            pwd.value = password
-        })
+        EmailOutlinedTextField(
+            email = email.value,
+            onValueChange = { email: String ->
+                vm.onEmailValueChange(email)
+            })
+        PasswordOutlinedTextField(
+            password = password.value,
+            onValueChange = { password: String ->
+                vm.onPasswordValueChange(password)
+            })
     }
 
 }
