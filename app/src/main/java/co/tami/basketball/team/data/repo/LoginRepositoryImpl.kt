@@ -1,6 +1,6 @@
 package co.tami.basketball.team.data.repo
 
-import co.tami.basketball.team.data.LoginDataSource
+import co.tami.basketball.team.data.source.LoginDataSource
 import co.tami.basketball.team.data.UserData
 
 class LoginRepositoryImpl(

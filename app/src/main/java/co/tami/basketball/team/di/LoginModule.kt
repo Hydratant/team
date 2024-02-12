@@ -1,7 +1,7 @@
 package co.tami.basketball.team.di
 
-import co.tami.basketball.team.data.LoginDataSource
-import co.tami.basketball.team.data.LoginDataSourceImpl
+import co.tami.basketball.team.data.source.LoginDataSource
+import co.tami.basketball.team.data.source.LoginDataSourceImpl
 import co.tami.basketball.team.data.repo.LoginRepository
 import co.tami.basketball.team.data.repo.LoginRepositoryImpl
 import com.google.firebase.auth.FirebaseAuth

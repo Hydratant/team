@@ -1,5 +1,7 @@
-package co.tami.basketball.team.data
+package co.tami.basketball.team.data.source
 
+import co.tami.basketball.team.data.UserData
+import co.tami.basketball.team.data.toUserData
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
