@@ -1,4 +1,4 @@
-package co.tami.basketball.team.data.source
+package co.tami.basketball.team.data.source.fake
 
 import co.tami.basketball.team.data.AthleticismData
 import co.tami.basketball.team.data.DefendingData
@@ -9,6 +9,7 @@ import co.tami.basketball.team.data.PlayerAttributesData
 import co.tami.basketball.team.data.PlayerData
 import co.tami.basketball.team.data.PlayerPosition
 import co.tami.basketball.team.data.ReboundingData
+import co.tami.basketball.team.data.source.PlayerDataSource
 
 class FakePlayerDataSourceImpl : PlayerDataSource {
 
