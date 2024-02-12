@@ -1,9 +1,6 @@
 package co.tami.basketball.team.ui.common
 
-import android.media.Image
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
@@ -16,7 +13,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import co.tami.basketball.team.R
-import co.tami.basketball.team.ui.login.EmailOutlinedTextField
 import co.tami.basketball.team.ui.theme.BasketballTeamTheme
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
