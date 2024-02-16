@@ -1,11 +1,18 @@
 package co.tami.basketball.team.ui.detail
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxScope
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.unit.dp
@@ -26,16 +33,29 @@ fun PlayerNameText(
 }
 
 @Composable
-fun PlayerInfoBox(
-    content: @Composable BoxScope.() -> Unit,
+fun PlayerInfoColumn(
+    value: String,
+    title: String,
     modifier: Modifier = Modifier
 ) {
-    Box(
+    Column(
         modifier = modifier
+            .aspectRatio(1f)
             .shadow(elevation = 4.dp)
             .padding(8.dp),
-        content = content
-    )
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(
+            text = value,
+            style = MaterialTheme.typography.titleMedium
+        )
+        Spacer(modifier = Modifier.height(4.dp))
+        Text(
+            text = title,
+            style = MaterialTheme.typography.titleLarge
+        )
+    }
 }
 
 @DarkLightModePreview
@@ -48,10 +68,13 @@ fun DetailNamePreview() {
 
 @DarkLightModePreview
 @Composable
-fun PlayerInfoBoxPreview() {
+fun PlayerInfoColumnPreview() {
     SystemThemeSurface {
-        PlayerInfoBox(
-            { Text(text = "Age가나다라") }
-        )
+        Row(modifier = Modifier.fillMaxWidth()) {
+            PlayerInfoColumn("13", "AGE", modifier = Modifier.weight(1f))
+            PlayerInfoColumn("13", "AGE", modifier = Modifier.weight(1f))
+            PlayerInfoColumn("13", "AGE", modifier = Modifier.weight(1f))
+        }
+
     }
 }
