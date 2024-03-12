@@ -1,4 +1,4 @@
-package co.tami.basketball.team.ui.detail
+package co.tami.basketball.team.ui.common
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Box
@@ -6,13 +6,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import co.tami.basketball.team.ui.common.DarkLightModePreview
-import co.tami.basketball.team.ui.common.SystemThemeSurface
 
 private const val STAT_DEFAULT_MAX_VALUE = 100
 private const val DEFAULT_STORK_SIZE = 40f
@@ -96,6 +95,30 @@ fun DonutChartPreview() {
                 80f,
                 150.dp,
                 Color.Green
+            )
+        }
+    }
+}
+
+@DarkLightModePreview
+@Composable
+fun DonutChartBrushPreview() {
+    SystemThemeSurface {
+        Box(
+            modifier = Modifier
+                .size(300.dp)
+                .padding(30.dp)
+        ) {
+            DonutChart(
+                80f,
+                150.dp,
+                Brush.linearGradient(
+                    colors = listOf(
+                        Color(0xff63C6C4), Color(0xff97CA49)
+                    ),
+                    start = Offset.Zero,
+                    end = Offset.Infinite,
+                )
             )
         }
     }
