@@ -108,8 +108,8 @@ fun DetailNamePreview() {
 fun PlayerInfoColumnPreview() {
     SystemThemeSurface {
         Row(modifier = Modifier.fillMaxWidth()) {
+            PlayerInfoCard("77", "OVR", modifier = Modifier.weight(1f))
             PlayerInfoCard("13", "AGE", modifier = Modifier.weight(1f))
-            PlayerInfoCard("181", "Height", modifier = Modifier.weight(1f))
             PlayerInfoCard("77", "Jersey", modifier = Modifier.weight(1f))
         }
 
