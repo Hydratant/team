@@ -1,7 +1,6 @@
 package co.tami.basketball.team.ui.common
 
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
@@ -12,9 +11,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import co.tami.basketball.team.ext.toDp
+import co.tami.basketball.team.ext.toPx
 
 private const val STAT_DEFAULT_MAX_VALUE = 100
-private const val DEFAULT_STORK_SIZE = 40f
+private val DEFAULT_STORK_SIZE = 16.dp
 private val DEFAULT_UNSELECT_COLOR = Color.DarkGray
 
 @Composable
@@ -23,19 +24,18 @@ fun DonutChart(
     chartSize: Dp,
     selectColor: Color,
     modifier: Modifier = Modifier,
-    strokeSize: Float = DEFAULT_STORK_SIZE,
+    strokeSize: Float = DEFAULT_STORK_SIZE.toPx(),
     unSelectColor: Color = DEFAULT_UNSELECT_COLOR,
 ) {
+    val chartPadding = (strokeSize / 2).toInt().toDp()
     Canvas(
         modifier = modifier
             .size(chartSize)
+            .padding(chartPadding)
     ) {
         // 빈 원
-        drawArc(
+        drawCircle(
             color = unSelectColor,
-            startAngle = 0f,
-            sweepAngle = 360f,
-            useCenter = false,
             style = Stroke(strokeSize),
         )
 
@@ -47,6 +47,7 @@ fun DonutChart(
             style = Stroke(strokeSize),
         )
     }
+
 }
 
 @Composable
@@ -55,19 +56,18 @@ fun DonutChart(
     chartSize: Dp,
     selectBrush: Brush,
     modifier: Modifier = Modifier,
-    strokeSize: Float = DEFAULT_STORK_SIZE,
+    strokeSize: Float = DEFAULT_STORK_SIZE.toPx(),
     unSelectColor: Color = DEFAULT_UNSELECT_COLOR,
 ) {
+    val chartPadding = (strokeSize / 2).toInt().toDp()
     Canvas(
         modifier = modifier
             .size(chartSize)
+            .padding(chartPadding)
     ) {
         // 빈 원
-        drawArc(
+        drawCircle(
             color = unSelectColor,
-            startAngle = 0f,
-            sweepAngle = 360f,
-            useCenter = false,
             style = Stroke(strokeSize),
         )
 
@@ -86,17 +86,11 @@ fun DonutChart(
 @Composable
 fun DonutChartPreview() {
     SystemThemeSurface {
-        Box(
-            modifier = Modifier
-                .size(300.dp)
-                .padding(30.dp)
-        ) {
-            DonutChart(
-                80f,
-                150.dp,
-                Color.Green
-            )
-        }
+        DonutChart(
+            80f,
+            150.dp,
+            Color.Green
+        )
     }
 }
 
@@ -104,22 +98,16 @@ fun DonutChartPreview() {
 @Composable
 fun DonutChartBrushPreview() {
     SystemThemeSurface {
-        Box(
-            modifier = Modifier
-                .size(300.dp)
-                .padding(30.dp)
-        ) {
-            DonutChart(
-                80f,
-                150.dp,
-                Brush.linearGradient(
-                    colors = listOf(
-                        Color(0xff63C6C4), Color(0xff97CA49)
-                    ),
-                    start = Offset.Zero,
-                    end = Offset.Infinite,
-                )
+        DonutChart(
+            80f,
+            150.dp,
+            Brush.linearGradient(
+                colors = listOf(
+                    Color(0xff63C6C4), Color(0xff97CA49)
+                ),
+                start = Offset.Zero,
+                end = Offset.Infinite,
             )
-        }
+        )
     }
 }
