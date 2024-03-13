@@ -1,7 +1,10 @@
 package co.tami.basketball.team.ui.common
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -11,6 +14,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import co.tami.basketball.team.R
 import co.tami.basketball.team.ui.theme.BasketballTeamTheme
@@ -26,6 +30,11 @@ fun SystemThemeSurface(
     }
 }
 
+@Composable
+fun VerticalSpacer(size: Dp) = Spacer(modifier = Modifier.height(size))
+
+@Composable
+fun HorizontalSpacer(size: Dp) = Spacer(modifier = Modifier.width(size))
 
 @Composable
 fun PlayerProfileImage(
