@@ -1,6 +1,8 @@
 package co.tami.basketball.team.ui.common
 
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
@@ -21,7 +23,6 @@ private val DEFAULT_UNSELECT_COLOR = Color.DarkGray
 @Composable
 fun DonutChart(
     value: Float,
-    chartSize: Dp,
     selectColor: Color,
     modifier: Modifier = Modifier,
     strokeSize: Float = DEFAULT_STORK_SIZE.toPx(),
@@ -30,7 +31,8 @@ fun DonutChart(
     val chartPadding = (strokeSize / 2).toInt().toDp()
     Canvas(
         modifier = modifier
-            .size(chartSize)
+            .aspectRatio(1f)
+            .fillMaxSize()
             .padding(chartPadding)
     ) {
         // 빈 원
@@ -53,7 +55,6 @@ fun DonutChart(
 @Composable
 fun DonutChart(
     value: Float,
-    chartSize: Dp,
     selectBrush: Brush,
     modifier: Modifier = Modifier,
     strokeSize: Float = DEFAULT_STORK_SIZE.toPx(),
@@ -62,7 +63,8 @@ fun DonutChart(
     val chartPadding = (strokeSize / 2).toInt().toDp()
     Canvas(
         modifier = modifier
-            .size(chartSize)
+            .aspectRatio(1f)
+            .fillMaxSize()
             .padding(chartPadding)
     ) {
         // 빈 원
@@ -88,7 +90,6 @@ fun DonutChartPreview() {
     SystemThemeSurface {
         DonutChart(
             80f,
-            150.dp,
             Color.Green
         )
     }
@@ -100,7 +101,6 @@ fun DonutChartBrushPreview() {
     SystemThemeSurface {
         DonutChart(
             80f,
-            150.dp,
             Brush.linearGradient(
                 colors = listOf(
                     Color(0xff63C6C4), Color(0xff97CA49)
