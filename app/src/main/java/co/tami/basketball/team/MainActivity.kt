@@ -7,7 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import co.tami.basketball.team.ui.login.LoginScreen
+import co.tami.basketball.team.ui.detail.PlayerDetailScreen
 import co.tami.basketball.team.ui.theme.BasketballTeamTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -22,7 +22,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    LoginScreen()
+                    PlayerDetailScreen()
                 }
             }
         }
