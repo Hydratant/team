@@ -222,7 +222,7 @@ fun PlayerInfoColumnPreview() {
     SystemThemeSurface {
         Row(modifier = Modifier.fillMaxWidth()) {
             PlayerInfoCard("77", "OVR", modifier = Modifier.weight(1f))
-            PlayerInfoCard("13", "AGE", modifier = Modifier.weight(1f))
+            PlayerInfoCard("31", "AGE", modifier = Modifier.weight(1f))
             PlayerInfoCard("77", "Jersey", modifier = Modifier.weight(1f))
         }
 
