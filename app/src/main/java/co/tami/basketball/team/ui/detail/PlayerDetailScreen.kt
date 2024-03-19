@@ -29,7 +29,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import co.tami.basketball.team.R
 import co.tami.basketball.team.ui.common.DarkLightModePreview
-import co.tami.basketball.team.ui.common.DonutChart
+import co.tami.basketball.team.ui.chart.donut.DonutChart
 import co.tami.basketball.team.ui.common.SystemThemeSurface
 import co.tami.basketball.team.ui.common.VerticalSpacer
 

@@ -1,4 +1,4 @@
-package co.tami.basketball.team.ui.common
+package co.tami.basketball.team.ui.chart.donut
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.aspectRatio
@@ -13,6 +13,8 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.unit.dp
 import co.tami.basketball.team.ext.toDp
 import co.tami.basketball.team.ext.toPx
+import co.tami.basketball.team.ui.common.DarkLightModePreview
+import co.tami.basketball.team.ui.common.SystemThemeSurface
 
 private const val STAT_DEFAULT_MAX_VALUE = 100
 private val DEFAULT_STORK_SIZE = 16.dp
