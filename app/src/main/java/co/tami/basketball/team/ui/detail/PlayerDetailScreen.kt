@@ -241,6 +241,5 @@ fun PlayerStatsPreview() {
             PlayerStats(stats = 55, statsTitle = "OutSide\nScoring", modifier = Modifier.weight(1f))
             PlayerStats(stats = 78, statsTitle = "OutSide\nScoring", modifier = Modifier.weight(1f))
         }
-
     }
 }
