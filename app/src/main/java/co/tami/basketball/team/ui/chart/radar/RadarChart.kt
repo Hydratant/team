@@ -25,6 +25,10 @@ fun DrawPolygonLine(
     strokeWidth: Float = DEFAULT_STORK_SIZE.toPx(),
     strokeCap: StrokeCap = DEFAULT_STROKE_CAP
 ) {
+
+    if (vertexCount < 3)
+        throw IllegalArgumentException("The minimum number of vertex count is 3.")
+
     Canvas(modifier = modifier) {
         val radius = size.minDimension / 2f // 반지름
 
@@ -34,8 +38,8 @@ fun DrawPolygonLine(
         // StatCount 로 나눈다.
         val startDrawRadius = radius / statCount
 
-        for (i in 1..statCount) {
-            val calculatorRadius = startDrawRadius * i
+        for (statIndex in 1..statCount) {
+            val calculatorRadius = startDrawRadius * statIndex
             var startOffset = Calculator.getCircumferencePointOffset(
                 center, calculatorRadius, offsetAngle
             )
@@ -59,7 +63,7 @@ fun DrawPolygonLine(
 
                 // 원의 중심에서 꼭짓점까지 선을 그리기
                 // 한번만 그리기 위해 마지막 Stat 다각형을 그릴때 그린다.
-                if (i == statCount) {
+                if (statIndex == statCount) {
                     drawLine(
                         color = lineColor,
                         start = center,
