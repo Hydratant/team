@@ -2,10 +2,15 @@ package co.tami.basketball.team.ui.chart.radar
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.TextMeasurer
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -15,6 +20,8 @@ import kotlin.math.PI
 
 private val DEFAULT_STROKE_CAP: StrokeCap = StrokeCap.Round
 private val DEFAULT_STORK_SIZE: Dp = 1.dp
+
+private val labelList = listOf<String>("Party1", "Party2", "Party3", "Party4", "Party5")
 
 @Composable
 fun DrawPolygonLine(
@@ -28,9 +35,14 @@ fun DrawPolygonLine(
 
     if (vertexCount < 3)
         throw IllegalArgumentException("The minimum number of vertex count is 3.")
+    val textMeasurer = rememberTextMeasurer()
+
+    val maxLabelWidth =
+        measureMaxLabelWidth(labelList, MaterialTheme.typography.labelSmall, textMeasurer)
 
     Canvas(modifier = modifier) {
-        val radius = size.minDimension / 2f // 반지름
+        val radius = (size.minDimension / 2f) - (maxLabelWidth + 10.toDp().toPx())  // 반지름
+//        val radius = (size.minDimension / 2f) // 반지름
 
         val angleBetweenLines = PI * 2 / vertexCount // 정 다각형 꼭짓점을 찍기 위해 각도를 구한다.
         val offsetAngle = -PI / 2
@@ -59,11 +71,14 @@ fun DrawPolygonLine(
                     strokeWidth = strokeWidth,
                     cap = strokeCap
                 )
+
                 startOffset = endOffset
 
                 // 원의 중심에서 꼭짓점까지 선을 그리기
                 // 한번만 그리기 위해 마지막 Stat 다각형을 그릴때 그린다.
                 if (statIndex == statCount) {
+
+                    // TODO: Draw Label Text
                     drawLine(
                         color = lineColor,
                         start = center,
@@ -77,13 +92,34 @@ fun DrawPolygonLine(
     }
 }
 
+
+/**
+ * 라벨들의 최대 width를 계산한다.
+ *
+ * @param radarLabels label 목록
+ * @param labelsStyle label TextStyle
+ * @param textMeasurer textMeasurer
+ * @return max Label width
+ */
+private fun measureMaxLabelWidth(
+    radarLabels: List<String>,
+    labelsStyle: TextStyle,
+    textMeasurer: TextMeasurer
+): Float {
+    return textMeasurer.measure(
+        AnnotatedString(
+            text = radarLabels.maxByOrNull { it.length } ?: "",
+        ), style = labelsStyle
+    ).size.width.toFloat()
+}
+
 @Composable
 @Preview
 fun DrawPolygonLinePreview() {
 
     DrawPolygonLine(
         Color.Gray,
-        8,
+        4,
         5,
         modifier = Modifier
             .size(300.dp)
