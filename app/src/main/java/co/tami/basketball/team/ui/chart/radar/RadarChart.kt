@@ -5,11 +5,13 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextMeasurer
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.drawText
 import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
@@ -35,11 +37,13 @@ fun DrawPolygonLine(
 
     if (vertexCount < 3)
         throw IllegalArgumentException("The minimum number of vertex count is 3.")
-    val textMeasurer = rememberTextMeasurer()
 
+
+    // textMeasurer
+    val textMeasurer: TextMeasurer = rememberTextMeasurer()
     val maxLabelWidth =
         measureMaxLabelWidth(labelList, MaterialTheme.typography.labelSmall, textMeasurer)
-
+    val labelHeight = textMeasurer.measure(AnnotatedString("M")).size.height
     Canvas(modifier = modifier) {
         val radius = (size.minDimension / 2f) - (maxLabelWidth + 10.toDp().toPx())  // 반지름
 //        val radius = (size.minDimension / 2f) // 반지름
@@ -79,6 +83,14 @@ fun DrawPolygonLine(
                 if (statIndex == statCount) {
 
                     // TODO: Draw Label Text
+                    drawText(
+                        textMeasurer = textMeasurer,
+                        text = "label1",
+                        topLeft = Offset(
+                            endOffset.x - 100f,
+                            endOffset.y - labelHeight / 2
+                        )
+                    )
                     drawLine(
                         color = lineColor,
                         start = center,
@@ -119,7 +131,7 @@ fun DrawPolygonLinePreview() {
 
     DrawPolygonLine(
         Color.Gray,
-        4,
+        5,
         5,
         modifier = Modifier
             .size(300.dp)
