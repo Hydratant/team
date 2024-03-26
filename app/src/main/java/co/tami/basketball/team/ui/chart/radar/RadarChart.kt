@@ -17,6 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import co.tami.basketball.team.ext.toPx
+import timber.log.Timber
 import kotlin.math.PI
 
 
@@ -82,7 +83,7 @@ fun DrawPolygonLine(
                 // 한번만 그리기 위해 마지막 Stat 다각형을 그릴때 그린다.
                 if (statIndex == statCount) {
 
-                    // TODO: Draw Label Text
+                    Timber.i("endOffset x : ${endOffset.x}, y : ${endOffset.y}")
                     drawText(
                         textMeasurer = textMeasurer,
                         text = "label1",
