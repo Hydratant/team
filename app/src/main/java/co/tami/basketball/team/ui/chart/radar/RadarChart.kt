@@ -48,7 +48,7 @@ fun DrawPolygonLine(
     Canvas(modifier = modifier) {
         val radius = (size.minDimension / 2f) - (maxLabelWidth + 10.toDp().toPx())  // 반지름
 //        val radius = (size.minDimension / 2f) // 반지름
-
+        val labelRadius = (size.minDimension / 2) - (maxLabelWidth / 2)
         val angleBetweenLines = PI * 2 / vertexCount // 정 다각형 꼭짓점을 찍기 위해 각도를 구한다.
         val offsetAngle = -PI / 2
 
@@ -84,12 +84,17 @@ fun DrawPolygonLine(
                 if (statIndex == statCount) {
 
                     Timber.i("endOffset x : ${endOffset.x}, y : ${endOffset.y}")
+                    val labelTopLeft = Calculator.getCircumferencePointOffset(center, labelRadius, endOffsetAngle)
                     drawText(
                         textMeasurer = textMeasurer,
                         text = "label1",
                         topLeft = Offset(
-                            endOffset.x - 100f,
-                            endOffset.y - labelHeight / 2
+                            labelTopLeft.x - textMeasurer.measure(
+                                AnnotatedString(
+                                    text = "label1",
+                                ),
+                            ).size.width / 2,
+                            labelTopLeft.y - labelHeight / 2
                         )
                     )
                     drawLine(
