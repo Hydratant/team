@@ -83,7 +83,7 @@ fun DrawPolygonLine(
                 // 한번만 그리기 위해 마지막 Stat 다각형을 그릴때 그린다.
                 if (statIndex == statCount) {
 
-                    Timber.i("endOffset x : ${endOffset.x}, y : ${endOffset.y}")
+                    // Label
                     val labelTopLeft = Calculator.getCircumferencePointOffset(center, labelRadius, endOffsetAngle)
                     drawText(
                         textMeasurer = textMeasurer,
