@@ -24,13 +24,13 @@ import kotlin.math.PI
 private val DEFAULT_STROKE_CAP: StrokeCap = StrokeCap.Round
 private val DEFAULT_STORK_SIZE: Dp = 1.dp
 
-private val labelList = listOf<String>("Party1", "Party2", "Party3", "Party4", "Party5", "Party6")
 
 @Composable
 fun DrawPolygonLine(
     lineColor: Color,
     vertexCount: Int,
     statCount: Int,
+    labelList: List<String>,
     modifier: Modifier = Modifier,
     strokeWidth: Float = DEFAULT_STORK_SIZE.toPx(),
     strokeCap: StrokeCap = DEFAULT_STROKE_CAP
@@ -46,8 +46,8 @@ fun DrawPolygonLine(
         measureMaxLabelWidth(labelList, MaterialTheme.typography.labelSmall, textMeasurer)
     val labelHeight = textMeasurer.measure(AnnotatedString("M")).size.height
     Canvas(modifier = modifier) {
-        val radius = (size.minDimension / 2f) - (maxLabelWidth + 10.toDp().toPx())  // 반지름
-//        val radius = (size.minDimension / 2f) // 반지름
+        // 반지름 에서 Label 영역 만큼 제외 10Dp는 공백을 위해 제외
+        val radius = (size.minDimension / 2f) - (maxLabelWidth + 20.toDp().toPx())
         val labelRadius = (size.minDimension / 2) - (maxLabelWidth / 2)
         val angleBetweenLines = PI * 2 / vertexCount // 정 다각형 꼭짓점을 찍기 위해 각도를 구한다.
         val offsetAngle = -PI / 2
@@ -84,17 +84,24 @@ fun DrawPolygonLine(
                 if (statIndex == statCount) {
 
                     // Label
-                    val labelTopLeft = Calculator.getCircumferencePointOffset(center, labelRadius, endOffsetAngle)
+                    val labelTopLeft =
+                        Calculator.getCircumferencePointOffset(center, labelRadius, endOffsetAngle)
+                    val labelIndex = vertexIndex - 1
+                    val labelText = labelList[labelIndex]
                     drawText(
                         textMeasurer = textMeasurer,
-                        text = "label1",
+                        text = labelText,
                         topLeft = Offset(
                             labelTopLeft.x - textMeasurer.measure(
                                 AnnotatedString(
-                                    text = "label1",
+                                    text = labelText,
                                 ),
                             ).size.width / 2,
-                            labelTopLeft.y - labelHeight / 2
+                            labelTopLeft.y - textMeasurer.measure(
+                                AnnotatedString(
+                                    text = labelText,
+                                ),
+                            ).size.height / 2
                         )
                     )
                     drawLine(
@@ -134,11 +141,13 @@ private fun measureMaxLabelWidth(
 @Composable
 @Preview
 fun DrawPolygonLinePreview() {
+    val labelList = listOf<String>("label1", "Party2", "Party3", "Party4", "Party5", "Party6")
 
     DrawPolygonLine(
         Color.Gray,
+        6,
         5,
-        5,
+        labelList,
         modifier = Modifier
             .size(300.dp)
     )
