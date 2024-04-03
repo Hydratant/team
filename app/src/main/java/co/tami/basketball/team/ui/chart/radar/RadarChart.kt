@@ -24,7 +24,7 @@ import kotlin.math.PI
 private val DEFAULT_STROKE_CAP: StrokeCap = StrokeCap.Round
 private val DEFAULT_STORK_SIZE: Dp = 1.dp
 
-private val labelList = listOf<String>("Party1", "Party2", "Party3", "Party4", "Party5")
+private val labelList = listOf<String>("Party1", "Party2", "Party3", "Party4", "Party5", "Party6")
 
 @Composable
 fun DrawPolygonLine(
