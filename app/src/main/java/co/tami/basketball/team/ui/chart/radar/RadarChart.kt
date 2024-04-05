@@ -17,7 +17,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import co.tami.basketball.team.ext.toPx
-import timber.log.Timber
 import kotlin.math.PI
 
 
