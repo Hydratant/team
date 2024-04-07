@@ -82,7 +82,7 @@ fun DrawPolygonLine(
                 // 한번만 그리기 위해 마지막 Stat 다각형을 그릴때 그린다.
                 if (statIndex == statCount) {
 
-                    // Label
+                    // Label 길이 측정
                     val labelTopLeft =
                         Calculator.getCircumferencePointOffset(center, labelRadius, endOffsetAngle)
                     val labelIndex = vertexIndex - 1
