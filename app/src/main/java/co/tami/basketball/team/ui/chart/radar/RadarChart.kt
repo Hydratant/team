@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.text.AnnotatedString
@@ -45,8 +44,8 @@ fun DrawPolygonLine(
         measureMaxLabelWidth(labelList, MaterialTheme.typography.labelSmall, textMeasurer)
     val labelHeight = textMeasurer.measure(AnnotatedString("M")).size.height
     Canvas(modifier = modifier) {
-        // 반지름 에서 Label 영역 만큼 제외 10Dp는 공백을 위해 제외
-        val radius = (size.minDimension / 2f) - (maxLabelWidth + 20.toDp().toPx())
+        // 반지름 에서 Label 영역 만큼 제외 20Dp는 공백을 위해 제외
+        val radius = (size.minDimension / 2) - (maxLabelWidth + 20.toDp().toPx())
         val labelRadius = (size.minDimension / 2) - (maxLabelWidth / 2)
         val angleBetweenLines = PI * 2 / vertexCount // 정 다각형 꼭짓점을 찍기 위해 각도를 구한다.
         val offsetAngle = -PI / 2
@@ -83,25 +82,20 @@ fun DrawPolygonLine(
                 if (statIndex == statCount) {
 
                     // Label 길이 측정
-                    val labelTopLeft =
+                    val labelTopOffset =
                         Calculator.getCircumferencePointOffset(center, labelRadius, endOffsetAngle)
                     val labelIndex = vertexIndex - 1
                     val labelText = labelList[labelIndex]
+                    val labelTopLeft = Calculator.calculatorLabelOffset(
+                        labelTopOffset,
+                        labelText,
+                        textMeasurer
+                    )
+
                     drawText(
                         textMeasurer = textMeasurer,
                         text = labelText,
-                        topLeft = Offset(
-                            labelTopLeft.x - textMeasurer.measure(
-                                AnnotatedString(
-                                    text = labelText,
-                                ),
-                            ).size.width / 2,
-                            labelTopLeft.y - textMeasurer.measure(
-                                AnnotatedString(
-                                    text = labelText,
-                                ),
-                            ).size.height / 2
-                        )
+                        topLeft = labelTopLeft
                     )
                     drawLine(
                         color = lineColor,
@@ -136,6 +130,7 @@ private fun measureMaxLabelWidth(
         ), style = labelsStyle
     ).size.width.toFloat()
 }
+
 
 @Composable
 @Preview
