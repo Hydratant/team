@@ -16,6 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import co.tami.basketball.team.ext.toPx
+import co.tami.basketball.team.ui.common.SystemThemeSurface
 import kotlin.math.PI
 
 
@@ -29,6 +30,7 @@ fun DrawPolygonLine(
     vertexCount: Int,
     statCount: Int,
     labelList: List<String>,
+    textStyle: TextStyle,
     modifier: Modifier = Modifier,
     strokeWidth: Float = DEFAULT_STORK_SIZE.toPx(),
     strokeCap: StrokeCap = DEFAULT_STROKE_CAP
@@ -41,11 +43,11 @@ fun DrawPolygonLine(
     // textMeasurer
     val textMeasurer: TextMeasurer = rememberTextMeasurer()
     val maxLabelWidth =
-        measureMaxLabelWidth(labelList, MaterialTheme.typography.labelSmall, textMeasurer)
-    val labelHeight = textMeasurer.measure(AnnotatedString("M")).size.height
+        measureMaxLabelWidth(labelList, textStyle, textMeasurer)
+
     Canvas(modifier = modifier) {
-        // 반지름 에서 Label 영역 만큼 제외 20Dp는 공백을 위해 제외
-        val radius = (size.minDimension / 2) - (maxLabelWidth + 20.toDp().toPx())
+        // 반지름 에서 Label 영역 만큼 제외 10dp 공백을 위해 제외
+        val radius = (size.minDimension / 2) - (maxLabelWidth + 10.dp.toPx())
         val labelRadius = (size.minDimension / 2) - (maxLabelWidth / 2)
         val angleBetweenLines = PI * 2 / vertexCount // 정 다각형 꼭짓점을 찍기 위해 각도를 구한다.
         val offsetAngle = -PI / 2
@@ -81,7 +83,16 @@ fun DrawPolygonLine(
                 // 한번만 그리기 위해 마지막 Stat 다각형을 그릴때 그린다.
                 if (statIndex == statCount) {
 
-                    // Label 길이 측정
+
+                    drawLine(
+                        color = lineColor,
+                        start = center,
+                        end = startOffset,
+                        strokeWidth = strokeWidth,
+                        cap = strokeCap
+                    )
+
+                    // Label 적용
                     val labelTopOffset =
                         Calculator.getCircumferencePointOffset(center, labelRadius, endOffsetAngle)
                     val labelIndex = vertexIndex - 1
@@ -95,15 +106,11 @@ fun DrawPolygonLine(
                     drawText(
                         textMeasurer = textMeasurer,
                         text = labelText,
+                        style = textStyle,
                         topLeft = labelTopLeft
                     )
-                    drawLine(
-                        color = lineColor,
-                        start = center,
-                        end = startOffset,
-                        strokeWidth = strokeWidth,
-                        cap = strokeCap
-                    )
+                    // 라벨 적용
+
                 }
             }
         }
@@ -137,12 +144,17 @@ private fun measureMaxLabelWidth(
 fun DrawPolygonLinePreview() {
     val labelList = listOf<String>("label1", "Party2", "Party3", "Party4", "Party5", "Party6")
 
-    DrawPolygonLine(
-        Color.Gray,
-        6,
-        5,
-        labelList,
-        modifier = Modifier
-            .size(300.dp)
-    )
+    SystemThemeSurface {
+        DrawPolygonLine(
+            Color.Gray,
+            6,
+            5,
+            labelList,
+            MaterialTheme.typography.labelLarge,
+            modifier = Modifier
+                .size(300.dp)
+        )
+
+    }
+
 }
