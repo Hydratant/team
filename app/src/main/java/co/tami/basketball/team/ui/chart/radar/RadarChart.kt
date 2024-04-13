@@ -34,6 +34,7 @@ fun DrawPolygonLine(
     vertexCount: Int,
     statCount: Int,
     stats: List<Int>,
+    statColor: Color,
     labels: List<String>,
     textStyle: TextStyle,
     modifier: Modifier = Modifier,
@@ -139,7 +140,7 @@ fun DrawPolygonLine(
         }
         drawPath(
             path = path,
-            color = Color.Blue
+            color = statColor
         )
 
     }
@@ -179,6 +180,7 @@ fun DrawPolygonLinePreview() {
             6,
             5,
             stats,
+            MaterialTheme.colorScheme.primary,
             labels,
             MaterialTheme.typography.labelLarge,
             modifier = Modifier
