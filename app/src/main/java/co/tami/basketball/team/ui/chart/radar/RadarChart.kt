@@ -1,3 +1,5 @@
+@file:Suppress("SpellCheckingInspection")
+
 package co.tami.basketball.team.ui.chart.radar
 
 import androidx.compose.foundation.Canvas
@@ -5,8 +7,11 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.drawscope.Fill
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextMeasurer
 import androidx.compose.ui.text.TextStyle
@@ -29,7 +34,8 @@ fun DrawPolygonLine(
     lineColor: Color,
     vertexCount: Int,
     statCount: Int,
-    labelList: List<String>,
+    stats: List<Int>,
+    labels: List<String>,
     textStyle: TextStyle,
     modifier: Modifier = Modifier,
     strokeWidth: Float = DEFAULT_STORK_SIZE.toPx(),
@@ -43,7 +49,7 @@ fun DrawPolygonLine(
     // textMeasurer
     val textMeasurer: TextMeasurer = rememberTextMeasurer()
     val maxLabelWidth =
-        measureMaxLabelWidth(labelList, textStyle, textMeasurer)
+        measureMaxLabelWidth(labels, textStyle, textMeasurer)
 
     Canvas(modifier = modifier) {
         // 반지름 에서 Label 영역 만큼 제외 10dp 공백을 위해 제외
@@ -57,6 +63,7 @@ fun DrawPolygonLine(
 
         for (statIndex in 1..statCount) {
             val calculatorRadius = startDrawRadius * statIndex
+            // 시작 Offset
             var startOffset = Calculator.getCircumferencePointOffset(
                 center, calculatorRadius, offsetAngle
             )
@@ -83,7 +90,7 @@ fun DrawPolygonLine(
                 // 한번만 그리기 위해 마지막 Stat 다각형을 그릴때 그린다.
                 if (statIndex == statCount) {
 
-
+                    // StartOffset이 꼭짓점.
                     drawLine(
                         color = lineColor,
                         start = center,
@@ -96,7 +103,7 @@ fun DrawPolygonLine(
                     val labelTopOffset =
                         Calculator.getCircumferencePointOffset(center, labelRadius, endOffsetAngle)
                     val labelIndex = vertexIndex - 1
-                    val labelText = labelList[labelIndex]
+                    val labelText = labels[labelIndex]
                     val labelTopLeft = Calculator.calculatorLabelOffset(
                         labelTopOffset,
                         labelText,
@@ -109,11 +116,33 @@ fun DrawPolygonLine(
                         style = textStyle,
                         topLeft = labelTopLeft
                     )
-                    // 라벨 적용
-
                 }
             }
         }
+
+        // Polygon
+        val statsOffsets = mutableListOf<Offset>()
+        for (statIndex in 1..stats.size) {
+            val realIndex = statIndex - 1
+            val statRadius = (stats[realIndex] / 100.0) * radius
+            val endOffsetAngle = angleBetweenLines * statIndex + offsetAngle
+            val statOffset =
+                Calculator.getCircumferencePointOffset(center, statRadius.toFloat(), endOffsetAngle)
+
+            statsOffsets.add(statOffset)
+        }
+        val path = Path().apply {
+            moveTo(statsOffsets[0].x, statsOffsets[0].y)
+            statsOffsets.forEach { offset: Offset ->
+                lineTo(offset.x, offset.y)
+            }
+            close()
+        }
+        drawPath(
+            path = path,
+            color = Color.Blue
+        )
+
     }
 }
 
@@ -142,14 +171,16 @@ private fun measureMaxLabelWidth(
 @Composable
 @Preview
 fun DrawPolygonLinePreview() {
-    val labelList = listOf<String>("label1", "Party2", "Party3", "Party4", "Party5", "Party6")
+    val labels = listOf("label1", "Party2", "Party3", "Party4", "Party5", "Party6")
+    val stats = listOf(15, 60, 30, 40, 55, 100)
 
     SystemThemeSurface {
         DrawPolygonLine(
             Color.Gray,
             6,
             5,
-            labelList,
+            stats,
+            labels,
             MaterialTheme.typography.labelLarge,
             modifier = Modifier
                 .size(300.dp)
