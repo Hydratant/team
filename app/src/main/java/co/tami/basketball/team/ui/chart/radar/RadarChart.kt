@@ -31,8 +31,7 @@ private val DEFAULT_STORK_SIZE: Dp = 1.dp
 @Composable
 fun DrawPolygonLine(
     lineColor: Color,
-    vertexCount: Int,
-    statCount: Int,
+    scalarSteps: Int,
     stats: List<Int>,
     statColor: Color,
     labels: List<String>,
@@ -42,7 +41,7 @@ fun DrawPolygonLine(
     strokeCap: StrokeCap = DEFAULT_STROKE_CAP
 ) {
 
-    if (vertexCount < 3)
+    if (stats.size < 3)
         throw IllegalArgumentException("The minimum number of vertex count is 3.")
 
 
@@ -52,24 +51,24 @@ fun DrawPolygonLine(
         measureMaxLabelWidth(labels, textStyle, textMeasurer)
 
     Canvas(modifier = modifier) {
-        // 반지름 에서 Label 영역 만큼 제외 10dp 공백을 위해 제외
+        // 반지름 에서 Label 영역을 위해 maxLabelWidth, 10dp 패딩을 빼준다.
         val radius = (size.minDimension / 2) - (maxLabelWidth + 10.dp.toPx())
         val labelRadius = (size.minDimension / 2) - (maxLabelWidth / 2)
-        val angleBetweenLines = PI * 2 / vertexCount // 정 다각형 꼭짓점을 찍기 위해 각도를 구한다.
+        val angleBetweenLines = PI * 2 / stats.size // 정 다각형 꼭짓점을 찍기 위해 각도를 구한다.
         val offsetAngle = -PI / 2
 
-        // StatCount 로 나눈다.
-        val startDrawRadius = radius / statCount
+        // scalarSteps으로 Stat 구분을 나눈다.
+        val startDrawRadius = radius / scalarSteps
 
-        for (statIndex in 1..statCount) {
-            val calculatorRadius = startDrawRadius * statIndex
+        for (scalarStep in 1..scalarSteps) {
+            val calculatorRadius = startDrawRadius * scalarStep
             // 시작 Offset
             var startOffset = Calculator.getCircumferencePointOffset(
                 center, calculatorRadius, offsetAngle
             )
 
-            for (vertexIndex in 1..vertexCount) {
-                val endOffsetAngle = angleBetweenLines * vertexIndex + offsetAngle
+            for (stat in 1..stats.size) {
+                val endOffsetAngle = angleBetweenLines * stat + offsetAngle
                 val endOffset = Calculator.getCircumferencePointOffset(
                     center,
                     calculatorRadius,
@@ -88,7 +87,7 @@ fun DrawPolygonLine(
 
                 // 원의 중심에서 꼭짓점까지 선을 그리기
                 // 한번만 그리기 위해 마지막 Stat 다각형을 그릴때 그린다.
-                if (statIndex == statCount) {
+                if (scalarStep == scalarSteps) {
 
                     // StartOffset이 꼭짓점.
                     drawLine(
@@ -102,7 +101,7 @@ fun DrawPolygonLine(
                     // Label 적용
                     val labelTopOffset =
                         Calculator.getCircumferencePointOffset(center, labelRadius, endOffsetAngle)
-                    val labelIndex = vertexIndex - 1
+                    val labelIndex = stat - 1
                     val labelText = labels[labelIndex]
                     val labelTopLeft = Calculator.calculatorLabelOffset(
                         labelTopOffset,
@@ -177,7 +176,6 @@ fun DrawPolygonLinePreview() {
     SystemThemeSurface {
         DrawPolygonLine(
             Color.Gray,
-            6,
             5,
             stats,
             MaterialTheme.colorScheme.primary,
