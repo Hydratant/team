@@ -108,7 +108,7 @@ fun DrawPolygonLine(
                         labelText,
                         textMeasurer
                     )
-
+                    // Label 그리기
                     drawText(
                         textMeasurer = textMeasurer,
                         text = labelText,
@@ -119,7 +119,7 @@ fun DrawPolygonLine(
             }
         }
 
-        // Polygon
+        // Polygon 그리기
         val statsOffsets = mutableListOf<Offset>()
         for (statIndex in 1..stats.size) {
             val realIndex = statIndex - 1
