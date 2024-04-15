@@ -12,8 +12,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -28,7 +30,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import co.tami.basketball.team.R
 import co.tami.basketball.team.ui.common.DarkLightModePreview
-import co.tami.basketball.team.ui.common.DonutChart
+import co.tami.basketball.team.ui.chart.donut.DonutChart
+import co.tami.basketball.team.ui.chart.radar.DrawLines
 import co.tami.basketball.team.ui.common.SystemThemeSurface
 import co.tami.basketball.team.ui.common.VerticalSpacer
 
@@ -38,6 +41,7 @@ import co.tami.basketball.team.ui.common.VerticalSpacer
 fun PlayerDetailScreen() {
     Column {
 
+        DrawLines(modifier = Modifier.size(300.dp),4)
         Box {
             Image(
                 modifier = Modifier
@@ -56,6 +60,7 @@ fun PlayerDetailScreen() {
                     name = "루카 돈치치",
                     modifier = Modifier.background(Color.Black.copy(alpha = 0.5f))
                 )
+
                 VerticalSpacer(size = 4.dp)
                 Text(
                     modifier = Modifier.background(Color.Black.copy(alpha = 0.5f)),
@@ -65,6 +70,7 @@ fun PlayerDetailScreen() {
             }
 
         }
+
 
         VerticalSpacer(size = 16.dp)
 
@@ -79,14 +85,16 @@ fun PlayerDetailScreen() {
             PlayerInfoCard("77", "Jersey", modifier = Modifier.weight(1f))
         }
 
-        VerticalSpacer(size = 32.dp)
-
-        Text(
-            text = "Stats",
-            style = MaterialTheme.typography.headlineMedium
+        Divider(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(
+                    horizontal = 16.dp,
+                    vertical = 24.dp
+                )
         )
 
-        VerticalSpacer(size = 16.dp)
+
         Column(
             modifier = Modifier.padding(horizontal = 16.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp)
