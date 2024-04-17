@@ -29,7 +29,7 @@ private val DEFAULT_STORK_SIZE: Dp = 1.dp
 
 
 @Composable
-fun DrawPolygonLine(
+fun RadarChart(
     lineColor: Color,
     scalarSteps: Int,
     stats: List<Int>,
@@ -174,7 +174,7 @@ fun DrawPolygonLinePreview() {
     val stats = listOf(15, 60, 30, 40, 55, 100)
 
     SystemThemeSurface {
-        DrawPolygonLine(
+        RadarChart(
             Color.Gray,
             5,
             stats,
