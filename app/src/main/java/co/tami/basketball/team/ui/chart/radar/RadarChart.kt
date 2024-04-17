@@ -16,10 +16,10 @@ import androidx.compose.ui.text.TextMeasurer
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.drawText
 import androidx.compose.ui.text.rememberTextMeasurer
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import co.tami.basketball.team.ext.toPx
+import co.tami.basketball.team.ui.common.DarkLightModePreview
 import co.tami.basketball.team.ui.common.SystemThemeSurface
 import kotlin.math.PI
 
@@ -169,7 +169,7 @@ private fun measureMaxLabelWidth(
 
 
 @Composable
-@Preview
+@DarkLightModePreview
 fun DrawPolygonLinePreview() {
     val labels = listOf("label1", "Party2", "Party3", "Party4", "Party5", "Party6")
     val stats = listOf(15, 60, 30, 40, 55, 100)
@@ -178,11 +178,12 @@ fun DrawPolygonLinePreview() {
         RadarChart(
             Color.Gray,
             stats,
-            MaterialTheme.colorScheme.primary,
+            Color(0x6022A3A0),
             labels,
-            MaterialTheme.typography.labelLarge,
+            MaterialTheme.typography.labelMedium,
             modifier = Modifier
                 .size(300.dp)
+
         )
 
     }
