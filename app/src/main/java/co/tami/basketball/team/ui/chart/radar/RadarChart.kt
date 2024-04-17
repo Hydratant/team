@@ -26,17 +26,18 @@ import kotlin.math.PI
 
 private val DEFAULT_STROKE_CAP: StrokeCap = StrokeCap.Round
 private val DEFAULT_STORK_SIZE: Dp = 1.dp
+private const val DEFAULT_SCALAR_STEPS = 5
 
 
 @Composable
 fun RadarChart(
     lineColor: Color,
-    scalarSteps: Int,
     stats: List<Int>,
     statColor: Color,
     labels: List<String>,
     textStyle: TextStyle,
     modifier: Modifier = Modifier,
+    scalarSteps: Int = DEFAULT_SCALAR_STEPS,
     strokeWidth: Float = DEFAULT_STORK_SIZE.toPx(),
     strokeCap: StrokeCap = DEFAULT_STROKE_CAP
 ) {
@@ -176,7 +177,6 @@ fun DrawPolygonLinePreview() {
     SystemThemeSurface {
         RadarChart(
             Color.Gray,
-            5,
             stats,
             MaterialTheme.colorScheme.primary,
             labels,
