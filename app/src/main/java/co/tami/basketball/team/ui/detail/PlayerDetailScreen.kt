@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
@@ -29,9 +28,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import co.tami.basketball.team.R
-import co.tami.basketball.team.ui.common.DarkLightModePreview
 import co.tami.basketball.team.ui.chart.donut.DonutChart
-import co.tami.basketball.team.ui.chart.radar.DrawLines
+import co.tami.basketball.team.ui.common.DarkLightModePreview
 import co.tami.basketball.team.ui.common.SystemThemeSurface
 import co.tami.basketball.team.ui.common.VerticalSpacer
 
@@ -41,7 +39,6 @@ import co.tami.basketball.team.ui.common.VerticalSpacer
 fun PlayerDetailScreen() {
     Column {
 
-        DrawLines(modifier = Modifier.size(300.dp),4)
         Box {
             Image(
                 modifier = Modifier
