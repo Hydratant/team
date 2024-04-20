@@ -37,6 +37,7 @@ room = "2.6.1"
 ## AndroidX
 androidx-core = { group = "androidx.core", name = "core-ktx", version.ref = "androidxCore" }
 androidx-lifecycle-runtime = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "androidxLifeCycle" }
+androidx-lifecycle-runtime-compose = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "androidxLifeCycle" }
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "androidxActivityCompose" }
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "androidxNavigation" }
 
@@ -89,7 +90,7 @@ google-services = { id = "com.google.gms.google-services", version.ref = "google
 
 [bundles]
 ## AndroidX
-android = ["androidx-core", "androidx-lifecycle-runtime", "androidx-activity-compose", "androidx-navigation-compose"]
+android = ["androidx-core", "androidx-lifecycle-runtime", "androidx-lifecycle-runtime-compose", "androidx-activity-compose", "androidx-navigation-compose"]
 ## Compose
 compose = ["compose-ui-ui", "compose-ui-graphics", "compose-ui-tooling-preview", "compose-material3"]
 ## Hilt
