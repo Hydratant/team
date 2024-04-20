@@ -4,6 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import co.tami.basketball.team.data.repo.PlayerRepository
+import co.tami.basketball.team.domain.entity.PlayerAttributeEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -39,6 +40,11 @@ class PlayerDetailViewModel @Inject constructor(
     private val _overRoll: MutableStateFlow<String> = MutableStateFlow("")
     val overRoll: StateFlow<String> get() = _overRoll.asStateFlow()
 
+    // OverRoll
+    private val _attributes: MutableStateFlow<List<PlayerAttributeEntity>> =
+        MutableStateFlow(listOf())
+    val attributes: StateFlow<List<PlayerAttributeEntity>> get() = _attributes.asStateFlow()
+
     init {
         getPlayer()
     }
@@ -53,6 +59,7 @@ class PlayerDetailViewModel @Inject constructor(
                 _position.value = player.positions
                 _jersey.value = player.jersey.toString()
                 _overRoll.value = player.overRoll.toString()
+                _attributes.value = player.attributes
             }
         }
     }
