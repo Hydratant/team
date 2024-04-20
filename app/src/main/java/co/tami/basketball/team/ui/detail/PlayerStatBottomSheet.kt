@@ -2,6 +2,8 @@ package co.tami.basketball.team.ui.detail
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
@@ -22,6 +24,7 @@ fun PlayerStatBottomSheet(
     onDismissRequest: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+
     // Title
     // RadarChart
     ModalBottomSheet(
@@ -50,6 +53,8 @@ fun StatRadarChart(
         stats = stats,
         statColor = MaterialTheme.colorScheme.secondary,
         labels = labels,
-        textStyle = MaterialTheme.typography.labelMedium
+        textStyle = MaterialTheme.typography.labelMedium,
+        modifier = Modifier.fillMaxWidth()
+            .height(450.dp)
     )
 }

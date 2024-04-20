@@ -45,6 +45,9 @@ class PlayerDetailViewModel @Inject constructor(
         MutableStateFlow(listOf())
     val attributes: StateFlow<List<PlayerAttributeEntity>> get() = _attributes.asStateFlow()
 
+    private val _bottomSheetEvent = MutableStateFlow<BottomSheetEvent>(BottomSheetEvent.Hide)
+    val bottomSheetEvent: StateFlow<BottomSheetEvent> get() = _bottomSheetEvent.asStateFlow()
+
     init {
         getPlayer()
     }
@@ -64,7 +67,20 @@ class PlayerDetailViewModel @Inject constructor(
         }
     }
 
+    fun showBottomSheet(item: PlayerAttributeEntity) {
+        _bottomSheetEvent.value = BottomSheetEvent.Show(item)
+    }
+
+    fun hideBottomSheet() {
+        _bottomSheetEvent.value = BottomSheetEvent.Hide
+    }
+
     companion object {
         const val KEY_PLAYER_ID = "playerId"
+    }
+
+    sealed class BottomSheetEvent {
+        data class Show(val item: PlayerAttributeEntity) : BottomSheetEvent()
+        data object Hide : BottomSheetEvent()
     }
 }
