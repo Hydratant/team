@@ -1,5 +1,9 @@
 package co.tami.basketball.team.data
 
+import co.tami.basketball.team.domain.entity.PlayerAttributesEntity
+import co.tami.basketball.team.ext.toMap
+import kotlinx.serialization.Serializable
+
 data class PlayerAttributesData(
     val outsideScoringData: OutsideScoringData,
     val insideScoringData: InsideScoringData,
@@ -9,6 +13,17 @@ data class PlayerAttributesData(
     val reboundingData: ReboundingData
 )
 
+fun PlayerAttributesData.toEntity(): PlayerAttributesEntity =
+    PlayerAttributesEntity(
+        outsideScoringData.toMap(),
+        insideScoringData.toMap(),
+        athleticismData.toMap(),
+        playMakingData.toMap(),
+        defendingData.toMap(),
+        reboundingData.toMap()
+    )
+
+@Serializable
 data class OutsideScoringData(
     val closeShot: Int,
     val midRangeShot: Int,
@@ -18,6 +33,7 @@ data class OutsideScoringData(
     val offensiveConsistency: Int
 )
 
+@Serializable
 data class InsideScoringData(
     val layup: Int,
     val postHook: Int,
@@ -27,6 +43,7 @@ data class InsideScoringData(
     val hands: Int
 )
 
+@Serializable
 data class AthleticismData(
     val speed: Int,
     val acceleration: Int,
@@ -36,6 +53,7 @@ data class AthleticismData(
     val overallDurability: Int
 )
 
+@Serializable
 data class PlayMakingData(
     val passAccuracy: Int,
     val ballHandle: Int,
@@ -44,6 +62,7 @@ data class PlayMakingData(
     val passVision: Int
 )
 
+@Serializable
 data class DefendingData(
     val interiorDefense: Int,
     val perimeterDefense: Int,
@@ -55,6 +74,7 @@ data class DefendingData(
     val defensiveConsistency: Int
 )
 
+@Serializable
 data class ReboundingData(
     val offensiveRebound: Int,
     val defensiveRebound: Int

@@ -46,7 +46,7 @@ class PlayerDetailViewModel @Inject constructor(
                 val player = playerRepository.getPlayer(id)
                 _name.value = player.name
                 _age.value = player.age.toString()
-                _position.value = player.positions.joinToString("/")
+                _position.value = player.positions
                 _jersey.value = player.jersey.toString()
 
             }
