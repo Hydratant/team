@@ -87,6 +87,9 @@ dependencies {
     // Android
     implementation(libs.bundles.android)
 
+    // Kotlin
+    implementation(libs.kotlinx.serialization.json)
+
     // Compose
     implementation(platform(libs.compose.bom))
     implementation(libs.bundles.compose)
