@@ -35,6 +35,10 @@ class PlayerDetailViewModel @Inject constructor(
     private val _jersey: MutableStateFlow<String> = MutableStateFlow("")
     val jersey: StateFlow<String> get() = _jersey.asStateFlow()
 
+    // OverRoll
+    private val _overRoll: MutableStateFlow<String> = MutableStateFlow("")
+    val overRoll: StateFlow<String> get() = _overRoll.asStateFlow()
+
     init {
         getPlayer()
     }
@@ -48,7 +52,7 @@ class PlayerDetailViewModel @Inject constructor(
                 _age.value = player.age.toString()
                 _position.value = player.positions
                 _jersey.value = player.jersey.toString()
-
+                _overRoll.value = player.overRoll.toString()
             }
         }
     }

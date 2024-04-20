@@ -48,6 +48,7 @@ fun PlayerDetailScreen(
     val position = vm.position.collectAsStateWithLifecycle()
     val age = vm.age.collectAsStateWithLifecycle()
     val jersey = vm.jersey.collectAsStateWithLifecycle()
+    val overRoll = vm.overRoll.collectAsStateWithLifecycle()
 
     Column(modifier = modifier) {
 
@@ -89,7 +90,7 @@ fun PlayerDetailScreen(
                 .padding(horizontal = 16.dp),
             horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            PlayerInfoCard("89", "OVR", modifier = Modifier.weight(1f))
+            PlayerInfoCard(overRoll.value, "OVR", modifier = Modifier.weight(1f))
             PlayerInfoCard(age.value, "AGE", modifier = Modifier.weight(1f))
             PlayerInfoCard(jersey.value, "Jersey", modifier = Modifier.weight(1f))
         }
