@@ -12,6 +12,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
@@ -19,6 +22,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -27,7 +31,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import co.tami.basketball.team.R
+import co.tami.basketball.team.domain.entity.PlayerAttributeEntity
 import co.tami.basketball.team.ui.chart.donut.DonutChart
 import co.tami.basketball.team.ui.common.DarkLightModePreview
 import co.tami.basketball.team.ui.common.SystemThemeSurface
@@ -36,8 +43,20 @@ import co.tami.basketball.team.ui.common.VerticalSpacer
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PlayerDetailScreen() {
-    Column {
+fun PlayerDetailScreen(
+    modifier: Modifier = Modifier,
+    vm: PlayerDetailViewModel = hiltViewModel()
+) {
+
+    // Data
+    val name: State<String> = vm.name.collectAsStateWithLifecycle()
+    val position: State<String> = vm.position.collectAsStateWithLifecycle()
+    val age: State<String> = vm.age.collectAsStateWithLifecycle()
+    val jersey: State<String> = vm.jersey.collectAsStateWithLifecycle()
+    val overRoll: State<String> = vm.overRoll.collectAsStateWithLifecycle()
+    val attributes: State<List<PlayerAttributeEntity>> = vm.attributes.collectAsStateWithLifecycle()
+
+    Column(modifier = modifier) {
 
         Box {
             Image(
@@ -54,14 +73,14 @@ fun PlayerDetailScreen() {
                     .padding(bottom = 24.dp, start = 24.dp)
             ) {
                 PlayerNameText(
-                    name = "루카 돈치치",
+                    name = name.value,
                     modifier = Modifier.background(Color.Black.copy(alpha = 0.5f))
                 )
 
                 VerticalSpacer(size = 4.dp)
                 Text(
                     modifier = Modifier.background(Color.Black.copy(alpha = 0.5f)),
-                    text = "PG/SG",
+                    text = position.value,
                     style = MaterialTheme.typography.headlineSmall
                 )
             }
@@ -77,9 +96,9 @@ fun PlayerDetailScreen() {
                 .padding(horizontal = 16.dp),
             horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            PlayerInfoCard("89", "OVR", modifier = Modifier.weight(1f))
-            PlayerInfoCard("31", "AGE", modifier = Modifier.weight(1f))
-            PlayerInfoCard("77", "Jersey", modifier = Modifier.weight(1f))
+            PlayerInfoCard(overRoll.value, "OVR", modifier = Modifier.weight(1f))
+            PlayerInfoCard(age.value, "AGE", modifier = Modifier.weight(1f))
+            PlayerInfoCard(jersey.value, "Jersey", modifier = Modifier.weight(1f))
         }
 
         Divider(
@@ -91,40 +110,19 @@ fun PlayerDetailScreen() {
                 )
         )
 
-
-        Column(
+        LazyVerticalGrid(
             modifier = Modifier.padding(horizontal = 16.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
+            columns = GridCells.Fixed(3),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+            horizontalArrangement = Arrangement.spacedBy(32.dp)
         ) {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(32.dp)
-            ) {
+            items(attributes.value) { item: PlayerAttributeEntity ->
                 PlayerStats(
-                    stats = 88,
-                    statsTitle = "Outside\nScoring",
-                    modifier = Modifier.weight(1f)
+                    stats = item.average,
+                    statsTitle = item.title
                 )
-                PlayerStats(
-                    stats = 86,
-                    statsTitle = "Inside\nScoring",
-                    modifier = Modifier.weight(1f)
-                )
-                PlayerStats(stats = 69, statsTitle = "Defending", modifier = Modifier.weight(1f))
-            }
-
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(32.dp)
-            ) {
-                PlayerStats(stats = 88, statsTitle = "Athleticism", modifier = Modifier.weight(1f))
-                PlayerStats(stats = 86, statsTitle = "Playmaking", modifier = Modifier.weight(1f))
-                PlayerStats(stats = 69, statsTitle = "Rebounding", modifier = Modifier.weight(1f))
             }
         }
-
     }
 }
 
