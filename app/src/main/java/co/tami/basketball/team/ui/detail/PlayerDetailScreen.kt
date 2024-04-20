@@ -27,6 +27,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import co.tami.basketball.team.R
 import co.tami.basketball.team.ui.chart.donut.DonutChart
 import co.tami.basketball.team.ui.common.DarkLightModePreview
@@ -36,8 +38,18 @@ import co.tami.basketball.team.ui.common.VerticalSpacer
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PlayerDetailScreen() {
-    Column {
+fun PlayerDetailScreen(
+    modifier: Modifier = Modifier,
+    vm: PlayerDetailViewModel = hiltViewModel()
+) {
+
+    // Data
+    val name = vm.name.collectAsStateWithLifecycle()
+    val position = vm.position.collectAsStateWithLifecycle()
+    val age = vm.age.collectAsStateWithLifecycle()
+    val jersey = vm.jersey.collectAsStateWithLifecycle()
+
+    Column(modifier = modifier) {
 
         Box {
             Image(
@@ -54,14 +66,14 @@ fun PlayerDetailScreen() {
                     .padding(bottom = 24.dp, start = 24.dp)
             ) {
                 PlayerNameText(
-                    name = "루카 돈치치",
+                    name = name.value,
                     modifier = Modifier.background(Color.Black.copy(alpha = 0.5f))
                 )
 
                 VerticalSpacer(size = 4.dp)
                 Text(
                     modifier = Modifier.background(Color.Black.copy(alpha = 0.5f)),
-                    text = "PG/SG",
+                    text = position.value,
                     style = MaterialTheme.typography.headlineSmall
                 )
             }
@@ -78,8 +90,8 @@ fun PlayerDetailScreen() {
             horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             PlayerInfoCard("89", "OVR", modifier = Modifier.weight(1f))
-            PlayerInfoCard("31", "AGE", modifier = Modifier.weight(1f))
-            PlayerInfoCard("77", "Jersey", modifier = Modifier.weight(1f))
+            PlayerInfoCard(age.value, "AGE", modifier = Modifier.weight(1f))
+            PlayerInfoCard(jersey.value, "Jersey", modifier = Modifier.weight(1f))
         }
 
         Divider(
