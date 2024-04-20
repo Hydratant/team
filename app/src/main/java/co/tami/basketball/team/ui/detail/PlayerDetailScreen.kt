@@ -12,6 +12,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
+import androidx.compose.foundation.lazy.staggeredgrid.LazyHorizontalStaggeredGrid
+import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
@@ -84,6 +87,9 @@ fun PlayerDetailScreen(
 
         VerticalSpacer(size = 16.dp)
 
+
+
+
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -104,6 +110,10 @@ fun PlayerDetailScreen(
                 )
         )
 
+        // TODO : List 필요 title, stats
+//        LazyHorizontalStaggeredGrid(rows = StaggeredGridCells.Fixed(3)) {
+//            items()
+//        }
 
         Column(
             modifier = Modifier.padding(horizontal = 16.dp),

@@ -7,5 +7,5 @@ data class PlayerEntity(
     val jersey: Int,
     val positions: String,
     val overRoll: Int,
-    val attributes: PlayerAttributesEntity
+    val attributes: List<PlayerAttributeEntity>
 )

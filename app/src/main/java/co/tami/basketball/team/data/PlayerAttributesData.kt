@@ -1,6 +1,6 @@
 package co.tami.basketball.team.data
 
-import co.tami.basketball.team.domain.entity.PlayerAttributesEntity
+import co.tami.basketball.team.domain.entity.PlayerAttributeEntity
 import co.tami.basketball.team.ext.toMap
 import kotlinx.serialization.Serializable
 
@@ -13,15 +13,49 @@ data class PlayerAttributesData(
     val reboundingData: ReboundingData
 )
 
-fun PlayerAttributesData.toEntity(): PlayerAttributesEntity =
-    PlayerAttributesEntity(
-        outsideScoringData.toMap(),
-        insideScoringData.toMap(),
-        athleticismData.toMap(),
-        playMakingData.toMap(),
-        defendingData.toMap(),
-        reboundingData.toMap()
+fun Map<String, Int>.toPlayerAttributeEntity(title: String): PlayerAttributeEntity {
+    return PlayerAttributeEntity(
+        title,
+        values.average().toInt(),
+        this,
     )
+}
+
+fun PlayerAttributesData.toAttributesList(): List<PlayerAttributeEntity> {
+
+    val outSideScoringEntity = outsideScoringData
+        .toMap()
+        .toPlayerAttributeEntity("outsideScoring")
+
+    val insideScoringEntity = insideScoringData
+        .toMap()
+        .toPlayerAttributeEntity("insideScoring")
+
+    val athleticismEntity = athleticismData
+        .toMap()
+        .toPlayerAttributeEntity("athleticism")
+
+    val playMakingEntity = playMakingData
+        .toMap()
+        .toPlayerAttributeEntity("playMaking")
+
+    val defendingEntity = defendingData
+        .toMap()
+        .toPlayerAttributeEntity("defending")
+
+    val reboundingEntity = reboundingData
+        .toMap()
+        .toPlayerAttributeEntity("rebounding")
+
+    return listOf(
+        outSideScoringEntity,
+        insideScoringEntity,
+        athleticismEntity,
+        playMakingEntity,
+        defendingEntity,
+        reboundingEntity
+    )
+}
 
 @Serializable
 data class OutsideScoringData(
