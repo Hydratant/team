@@ -5,6 +5,6 @@ data class PlayerData(
     val name: String,
     val age: Int,
     val jersey: Int,
-    val position: List<PlayerPosition>,
+    val positions: List<PlayerPosition>,
     val attributes: PlayerAttributesData
 )
