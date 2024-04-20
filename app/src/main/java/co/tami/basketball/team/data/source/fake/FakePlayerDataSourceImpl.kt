@@ -87,7 +87,7 @@ class FakePlayerDataSourceImpl : PlayerDataSource {
         name = "루카 돈치치",
         age = 34,
         jersey = 77,
-        position = listOf(PlayerPosition.PG, PlayerPosition.SG),
+        positions = listOf(PlayerPosition.PG, PlayerPosition.SG),
         attributes = lukaAttributesData
     )
 
