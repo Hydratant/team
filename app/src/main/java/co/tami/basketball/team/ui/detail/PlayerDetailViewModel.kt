@@ -45,6 +45,9 @@ class PlayerDetailViewModel @Inject constructor(
         MutableStateFlow(listOf())
     val attributes: StateFlow<List<PlayerAttributeEntity>> get() = _attributes.asStateFlow()
 
+    private val _bottomSheetEvent = MutableStateFlow<BottomSheetEvent>(BottomSheetEvent.Hide)
+    val bottomSheetEvent: StateFlow<BottomSheetEvent> get() = _bottomSheetEvent.asStateFlow()
+
     init {
         getPlayer()
     }
@@ -52,7 +55,7 @@ class PlayerDetailViewModel @Inject constructor(
     private fun getPlayer() {
         viewModelScope.launch {
             // TODO : id 가 Null 이 아닐 경우 오류 메세지 후 Finish
-            id?.let { id: Long ->
+            id.let { id: Long ->
                 val player = playerRepository.getPlayer(id)
                 _name.value = player.name
                 _age.value = player.age.toString()
@@ -64,7 +67,20 @@ class PlayerDetailViewModel @Inject constructor(
         }
     }
 
+    fun showBottomSheet(item: PlayerAttributeEntity) {
+        _bottomSheetEvent.value = BottomSheetEvent.Show(item)
+    }
+
+    fun hideBottomSheet() {
+        _bottomSheetEvent.value = BottomSheetEvent.Hide
+    }
+
     companion object {
         const val KEY_PLAYER_ID = "playerId"
+    }
+
+    sealed class BottomSheetEvent {
+        data class Show(val item: PlayerAttributeEntity) : BottomSheetEvent()
+        data object Hide : BottomSheetEvent()
     }
 }

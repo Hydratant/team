@@ -2,6 +2,7 @@ package co.tami.basketball.team.ui.detail
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -48,13 +49,31 @@ fun PlayerDetailScreen(
     vm: PlayerDetailViewModel = hiltViewModel()
 ) {
 
-    // Data
+    // Collect State
     val name: State<String> = vm.name.collectAsStateWithLifecycle()
     val position: State<String> = vm.position.collectAsStateWithLifecycle()
     val age: State<String> = vm.age.collectAsStateWithLifecycle()
     val jersey: State<String> = vm.jersey.collectAsStateWithLifecycle()
     val overRoll: State<String> = vm.overRoll.collectAsStateWithLifecycle()
     val attributes: State<List<PlayerAttributeEntity>> = vm.attributes.collectAsStateWithLifecycle()
+
+    // BottomSheet
+    val bottomSheetEvent = vm.bottomSheetEvent.collectAsStateWithLifecycle()
+    when (bottomSheetEvent.value) {
+        is PlayerDetailViewModel.BottomSheetEvent.Show -> {
+            val item = (bottomSheetEvent.value as PlayerDetailViewModel.BottomSheetEvent.Show).item
+            PlayerStatBottomSheet(
+                title = item.title,
+                stats = item.value.values.toList(),
+                labels = item.value.keys.toList(),
+                onDismissRequest = { vm.hideBottomSheet() },
+                skipPartiallyExpanded = true
+            )
+        }
+
+        PlayerDetailViewModel.BottomSheetEvent.Hide -> Unit
+    }
+
 
     Column(modifier = modifier) {
 
@@ -118,8 +137,10 @@ fun PlayerDetailScreen(
         ) {
             items(attributes.value) { item: PlayerAttributeEntity ->
                 PlayerStats(
-                    stats = item.average,
-                    statsTitle = item.title
+                    item = item,
+                    onStatClick = { entity: PlayerAttributeEntity ->
+                        vm.showBottomSheet(entity)
+                    }
                 )
             }
         }
@@ -178,30 +199,31 @@ fun PlayerInfoCard(
 
 @Composable
 fun PlayerStats(
-    stats: Int,
-    statsTitle: String,
-    modifier: Modifier = Modifier
+    item: PlayerAttributeEntity,
+    modifier: Modifier = Modifier,
+    onStatClick: ((item: PlayerAttributeEntity) -> Unit)? = null
 ) {
     Column(
-        modifier = modifier,
+        modifier = modifier
+            .clickable { onStatClick?.invoke(item) },
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Box {
             DonutChart(
                 modifier = Modifier.align(Alignment.Center),
-                value = stats.toFloat(),
+                value = item.average.toFloat(),
                 selectColor = MaterialTheme.colorScheme.tertiary,
                 unSelectColor = MaterialTheme.colorScheme.tertiaryContainer
             )
             Text(
                 modifier = Modifier.align(Alignment.Center),
-                text = stats.toString(),
+                text = item.average.toString(),
                 style = MaterialTheme.typography.headlineMedium
             )
         }
         VerticalSpacer(size = 8.dp)
         Text(
-            text = statsTitle,
+            text = item.title,
             style = MaterialTheme.typography.titleMedium,
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center
@@ -240,9 +262,9 @@ fun PlayerStatsPreview() {
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(32.dp)
         ) {
-            PlayerStats(stats = 88, statsTitle = "OutSide\nScoring", modifier = Modifier.weight(1f))
-            PlayerStats(stats = 55, statsTitle = "OutSide\nScoring", modifier = Modifier.weight(1f))
-            PlayerStats(stats = 78, statsTitle = "OutSide\nScoring", modifier = Modifier.weight(1f))
+//            PlayerStats(stats = 88, statsTitle = "OutSide\nScoring", modifier = Modifier.weight(1f))
+//            PlayerStats(stats = 55, statsTitle = "OutSide\nScoring", modifier = Modifier.weight(1f))
+//            PlayerStats(stats = 78, statsTitle = "OutSide\nScoring", modifier = Modifier.weight(1f))
         }
     }
 }
