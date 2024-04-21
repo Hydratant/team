@@ -55,7 +55,7 @@ class PlayerDetailViewModel @Inject constructor(
     private fun getPlayer() {
         viewModelScope.launch {
             // TODO : id 가 Null 이 아닐 경우 오류 메세지 후 Finish
-            id?.let { id: Long ->
+            id.let { id: Long ->
                 val player = playerRepository.getPlayer(id)
                 _name.value = player.name
                 _age.value = player.age.toString()
