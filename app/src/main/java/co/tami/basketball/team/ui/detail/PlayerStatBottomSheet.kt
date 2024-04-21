@@ -8,6 +8,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -22,13 +23,17 @@ fun PlayerStatBottomSheet(
     stats: List<Int>,
     labels: List<String>,
     onDismissRequest: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    skipPartiallyExpanded: Boolean = false
 ) {
-
+    if (stats.size < 3) return
+    val bottomSheetState =
+        rememberModalBottomSheetState(skipPartiallyExpanded = skipPartiallyExpanded)
     // Title
     // RadarChart
     ModalBottomSheet(
         onDismissRequest = onDismissRequest,
+        sheetState = bottomSheetState,
         modifier = modifier
     ) {
         Column(
@@ -54,7 +59,8 @@ fun StatRadarChart(
         statColor = MaterialTheme.colorScheme.secondary,
         labels = labels,
         textStyle = MaterialTheme.typography.labelMedium,
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier
+            .fillMaxWidth()
             .height(450.dp)
     )
 }
