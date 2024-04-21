@@ -3,9 +3,14 @@
 package co.tami.basketball.team.ui.chart.radar
 
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
@@ -182,8 +187,8 @@ fun DrawPolygonLinePreview() {
             labels,
             MaterialTheme.typography.labelMedium,
             modifier = Modifier
-                .size(300.dp)
-
+                .fillMaxWidth()
+                .aspectRatio(1f)
         )
 
     }

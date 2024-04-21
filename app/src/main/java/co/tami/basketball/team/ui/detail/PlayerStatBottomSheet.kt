@@ -2,8 +2,8 @@ package co.tami.basketball.team.ui.detail
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
@@ -26,7 +26,9 @@ fun PlayerStatBottomSheet(
     modifier: Modifier = Modifier,
     skipPartiallyExpanded: Boolean = false
 ) {
+    // TODO : 3개 미만일 경우는 BarChart 를 사용하여 그리기
     if (stats.size < 3) return
+
     val bottomSheetState =
         rememberModalBottomSheetState(skipPartiallyExpanded = skipPartiallyExpanded)
     // Title
@@ -61,6 +63,6 @@ fun StatRadarChart(
         textStyle = MaterialTheme.typography.labelMedium,
         modifier = Modifier
             .fillMaxWidth()
-            .height(450.dp)
+            .aspectRatio(1f)
     )
 }
