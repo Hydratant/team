@@ -60,7 +60,7 @@ fun StatRadarChart(
         stats = stats,
         statColor = MaterialTheme.colorScheme.secondary,
         labels = labels,
-        textStyle = MaterialTheme.typography.labelMedium,
+        textStyle = MaterialTheme.typography.labelMedium.copy(color = MaterialTheme.colorScheme.secondary),
         modifier = Modifier
             .fillMaxWidth()
             .aspectRatio(1f)

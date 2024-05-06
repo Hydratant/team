@@ -181,7 +181,7 @@ fun DrawPolygonLinePreview() {
             stats,
             Color(0x6022A3A0),
             labels,
-            MaterialTheme.typography.labelMedium,
+            MaterialTheme.typography.labelMedium.copy(color = MaterialTheme.colorScheme.secondary),
             modifier = Modifier
                 .fillMaxWidth()
                 .aspectRatio(1f)
