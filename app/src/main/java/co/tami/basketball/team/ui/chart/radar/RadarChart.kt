@@ -12,6 +12,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextMeasurer
 import androidx.compose.ui.text.TextStyle
@@ -32,121 +33,161 @@ private const val DEFAULT_SCALAR_STEPS = 5
 
 @Composable
 fun RadarChart(
-    lineColor: Color,
-    stats: List<Int>,
-    statColor: Color,
-    labels: List<String>,
-    textStyle: TextStyle,
+    radarValueMap: LinkedHashMap<String, Int>,
+    polygonLineColor: Color,
+    polygonColor: Color,
+    labelTextStyle: TextStyle,
     modifier: Modifier = Modifier,
     scalarSteps: Int = DEFAULT_SCALAR_STEPS,
-    strokeWidth: Float = DEFAULT_STORK_SIZE.toPx(),
-    strokeCap: StrokeCap = DEFAULT_STROKE_CAP
+    polygonLineStrokeWidth: Float = DEFAULT_STORK_SIZE.toPx(),
+    polygonLineStrokeCap: StrokeCap = DEFAULT_STROKE_CAP
 ) {
 
-    if (stats.size < 3)
+    val vertexCount = radarValueMap.size
+
+    if (vertexCount < 3)
         throw IllegalArgumentException("The minimum number of vertex count is 3.")
 
 
-    // textMeasurer
-    val textMeasurer: TextMeasurer = rememberTextMeasurer()
-    val maxLabelWidth =
-        measureMaxLabelWidth(labels, textStyle, textMeasurer)
-
+    val textMeasurer = rememberTextMeasurer()
     Canvas(modifier = modifier) {
-        // 반지름 에서 Label 영역을 위해 maxLabelWidth, 10dp 패딩을 빼준다.
-        val radius = (size.minDimension / 2) - (maxLabelWidth + 10.dp.toPx())
-        val labelRadius = (size.minDimension / 2) - (maxLabelWidth / 2)
-        val angleBetweenLines = PI * 2 / stats.size // 정 다각형 꼭짓점을 찍기 위해 각도를 구한다.
-        val offsetAngle = -PI / 2
-
-        // scalarSteps으로 Stat 구분을 나눈다.
-        val startDrawRadius = radius / scalarSteps
-
-        for (scalarStep in 1..scalarSteps) {
-            val calculatorRadius = startDrawRadius * scalarStep
-            // 시작 Offset
-            var startOffset = Calculator.getCircumferencePointOffset(
-                center, calculatorRadius, offsetAngle
+        val radius = (size.minDimension / 2)
+        for (index in 1..scalarSteps) {
+            val radiusScalar = radius / scalarSteps * index
+            // Polygon Line 그리기
+            drawPolygonLine(
+                radius = radiusScalar,
+                vertexCount = vertexCount,
+                color = polygonLineColor,
+                strokeWidth = polygonLineStrokeWidth,
+                cap = polygonLineStrokeCap
             )
-
-            for (stat in 1..stats.size) {
-                val endOffsetAngle = angleBetweenLines * stat + offsetAngle
-                val endOffset = Calculator.getCircumferencePointOffset(
-                    center,
-                    calculatorRadius,
-                    endOffsetAngle
-                )
-                // 정 다각형 그리기
-                drawLine(
-                    color = lineColor,
-                    start = startOffset,
-                    end = endOffset,
-                    strokeWidth = strokeWidth,
-                    cap = strokeCap
-                )
-
-                startOffset = endOffset
-
-                // 원의 중심에서 꼭짓점까지 선을 그리기
-                // 한번만 그리기 위해 마지막 Stat 다각형을 그릴때 그린다.
-                if (scalarStep == scalarSteps) {
-
-                    // StartOffset이 꼭짓점.
-                    drawLine(
-                        color = lineColor,
-                        start = center,
-                        end = startOffset,
-                        strokeWidth = strokeWidth,
-                        cap = strokeCap
-                    )
-
-                    // Label 적용
-                    val labelTopOffset =
-                        Calculator.getCircumferencePointOffset(center, labelRadius, endOffsetAngle)
-                    val labelIndex = stat - 1
-                    val labelText = labels[labelIndex]
-                    val labelTopLeft = Calculator.calculatorLabelOffset(
-                        labelTopOffset,
-                        labelText,
-                        textMeasurer
-                    )
-                    // Label 그리기
-                    drawText(
-                        textMeasurer = textMeasurer,
-                        text = labelText,
-                        style = textStyle,
-                        topLeft = labelTopLeft
-                    )
-                }
-            }
         }
+
+        drawLabels(
+            vertexCount = vertexCount,
+            textMeasurer = textMeasurer,
+            labes = radarValueMap.keys.toList(),
+            style = labelTextStyle
+        )
 
         // Polygon 그리기
-        val statsOffsets = mutableListOf<Offset>()
-        for (statIndex in 1..stats.size) {
-            val realIndex = statIndex - 1
-            val statRadius = (stats[realIndex] / 100.0) * radius
-            val endOffsetAngle = angleBetweenLines * statIndex + offsetAngle
-            val statOffset =
-                Calculator.getCircumferencePointOffset(center, statRadius.toFloat(), endOffsetAngle)
+        drawPolygon(
+            radius = radius,
+            stats = radarValueMap.values.toList(),
+            polygonColor = polygonColor,
+            vertexCount = vertexCount
+        )
+    }
+}
 
-            statsOffsets.add(statOffset)
+fun DrawScope.drawPolygonLine(
+    radius: Float,
+    vertexCount: Int,
+    color: Color,
+    strokeWidth: Float,
+    cap: StrokeCap
+) {
+    // 정 다각형 꼭짓점을 찍기 위해 각도를 구한다.
+    val angleBetweenLines = PI * 2 / vertexCount
+
+    // 시작 Offset
+    var startOffset = Calculator.getCircumferencePointOffset(center, radius, 0.0)
+
+    for (index in 1..vertexCount) {
+        val endOffsetAngle = angleBetweenLines * index
+        val endOffset = Calculator.getCircumferencePointOffset(
+            center,
+            radius,
+            endOffsetAngle
+        )
+        // 정 다각형 그리기
+        drawLine(
+            color = color,
+            start = startOffset,
+            end = endOffset,
+            strokeWidth = strokeWidth,
+            cap = cap
+        )
+
+        startOffset = endOffset
+
+        // 원의 중심에서 꼭짓점까지 선을 그리기
+        drawLine(
+            color = color,
+            start = center,
+            end = startOffset,
+            strokeWidth = strokeWidth,
+            cap = cap
+        )
+    }
+
+}
+
+fun DrawScope.drawPolygon(
+    radius: Float,
+    stats: List<Int>,
+    polygonColor: Color,
+    vertexCount: Int
+) {
+
+    // 정 다각형 꼭짓점을 찍기 위해 각도를 구한다.
+    val angleBetweenLines = PI * 2 / vertexCount
+
+    // Offset 저장
+    val statsOffsets = mutableListOf<Offset>()
+    for (statIndex in 1..stats.size) {
+        val realIndex = statIndex - 1
+        val statRadius = (stats[realIndex] / 100.0) * radius
+        val endOffsetAngle = angleBetweenLines * statIndex
+        val statOffset =
+            Calculator.getCircumferencePointOffset(center, statRadius.toFloat(), endOffsetAngle)
+
+        statsOffsets.add(statOffset)
+    }
+    val path = Path().apply {
+        moveTo(statsOffsets[0].x, statsOffsets[0].y)
+        statsOffsets.forEach { offset: Offset ->
+            lineTo(offset.x, offset.y)
         }
-        val path = Path().apply {
-            moveTo(statsOffsets[0].x, statsOffsets[0].y)
-            statsOffsets.forEach { offset: Offset ->
-                lineTo(offset.x, offset.y)
-            }
-            close()
-        }
-        drawPath(
-            path = path,
-            color = statColor
+        close()
+    }
+    drawPath(
+        path = path,
+        color = polygonColor
+    )
+}
+
+fun DrawScope.drawLabels(
+    vertexCount: Int,
+    textMeasurer: TextMeasurer,
+    labes: List<String>,
+    style: TextStyle
+) {
+    // RadarChart TextOffset Calculation
+    val labelRadius = (size.minDimension / 2)
+    val angleBetweenLines = PI * 2 / vertexCount
+
+    labes.forEachIndexed { index, label ->
+        val endOffsetAngle = angleBetweenLines * (index + 1)
+        val labelTopOffset =
+            Calculator.getCircumferencePointOffset(center, labelRadius, endOffsetAngle)
+
+        val labelTopLeft = Calculator.calculatorLabelOffset(
+            labelTopOffset,
+            label,
+            textMeasurer
+        )
+
+        drawText(
+            textMeasurer = textMeasurer,
+            text = label,
+            style = style,
+            topLeft = labelTopLeft
         )
 
     }
 }
-
 
 /**
  * 라벨들의 최대 width를 계산한다.
@@ -171,16 +212,21 @@ private fun measureMaxLabelWidth(
 
 @Composable
 @DarkLightModePreview
-fun DrawPolygonLinePreview() {
-    val labels = listOf("label1", "Party2", "Party3", "Party4", "Party5", "Party6")
-    val stats = listOf(15, 60, 30, 40, 55, 100)
+fun DrawPolygonLinePreview2() {
+    val map = linkedMapOf(
+        "label1" to 80,
+        "Party2" to 76,
+        "Party3" to 66,
+        "Party4" to 43,
+        "Party5" to 79,
+        "Party6" to 100
+    )
 
     SystemThemeSurface {
         RadarChart(
+            map,
             Color.Gray,
-            stats,
             Color(0x6022A3A0),
-            labels,
             MaterialTheme.typography.labelMedium.copy(color = MaterialTheme.colorScheme.secondary),
             modifier = Modifier
                 .fillMaxWidth()
