@@ -61,14 +61,25 @@ fun PlayerDetailScreen(
     val bottomSheetEvent = vm.bottomSheetEvent.collectAsStateWithLifecycle()
     when (bottomSheetEvent.value) {
         is PlayerDetailViewModel.BottomSheetEvent.Show -> {
+
             val item = (bottomSheetEvent.value as PlayerDetailViewModel.BottomSheetEvent.Show).item
-            PlayerStatBottomSheet(
-                title = item.title,
-                stats = item.value.values.toList(),
-                labels = item.value.keys.toList(),
-                onDismissRequest = { vm.hideBottomSheet() },
-                skipPartiallyExpanded = true
-            )
+            if (item.value.size > 2) {
+                PlayerStatBottomSheet(
+                    title = item.title,
+                    stats = item.value.values.toList(),
+                    labels = item.value.keys.toList(),
+                    onDismissRequest = { vm.hideBottomSheet() },
+                    skipPartiallyExpanded = true
+                )
+            } else {
+                PlayerProgressStatBottomSheet(
+                    title = item.title,
+                    stats = item.value.values.toList(),
+                    labels = item.value.keys.toList(),
+                    onDismissRequest = { vm.hideBottomSheet() },
+                    skipPartiallyExpanded = true
+                )
+            }
         }
 
         PlayerDetailViewModel.BottomSheetEvent.Hide -> Unit
