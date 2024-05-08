@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import co.tami.basketball.team.ext.toPx
 import co.tami.basketball.team.ui.common.DarkLightModePreview
 import co.tami.basketball.team.ui.common.SystemThemeSurface
+import kotlin.math.PI
 
 
 private val DEFAULT_STROKE_CAP: StrokeCap = StrokeCap.Round
@@ -44,7 +45,11 @@ fun RadarChart(
         throw IllegalArgumentException("The minimum number of vertex count is 3.")
 
 
-    val textMeasurer = rememberTextMeasurer()
+    val textMeasurer = rememberTextMeasurer(radarValueMap.size)
+
+    // 정 다각형 꼭짓점을 찍기 위해 각도를 구한다.
+    val angleBetweenLines = PI * 2 / vertexCount
+
     Canvas(modifier = modifier) {
         val radius = (size.minDimension / 2)
         for (index in 1..scalarSteps) {
@@ -52,6 +57,7 @@ fun RadarChart(
             // Polygon Line 그리기
             drawPolygonLine(
                 radius = radiusScalar,
+                angleBetweenLines = angleBetweenLines,
                 vertexCount = vertexCount,
                 color = polygonLineColor,
                 strokeWidth = polygonLineStrokeWidth,
@@ -61,7 +67,7 @@ fun RadarChart(
 
         // Polygon Label 그리기
         drawLabels(
-            vertexCount = vertexCount,
+            angleBetweenLines = angleBetweenLines,
             textMeasurer = textMeasurer,
             labels = radarValueMap.keys.toList(),
             style = labelTextStyle
@@ -69,10 +75,10 @@ fun RadarChart(
 
         // Polygon 그리기
         drawPolygon(
+            angleBetweenLines = angleBetweenLines,
             radius = radius,
             stats = radarValueMap.values.toList(),
-            polygonColor = polygonColor,
-            vertexCount = vertexCount
+            polygonColor = polygonColor
         )
     }
 }

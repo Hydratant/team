@@ -8,17 +8,17 @@ import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.text.TextMeasurer
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.drawText
+import timber.log.Timber
 import kotlin.math.PI
 
 fun DrawScope.drawPolygonLine(
     radius: Float,
     vertexCount: Int,
+    angleBetweenLines: Double,
     color: Color,
     strokeWidth: Float,
     cap: StrokeCap
 ) {
-    // 정 다각형 꼭짓점을 찍기 위해 각도를 구한다.
-    val angleBetweenLines = PI * 2 / vertexCount
 
     // 시작 Offset
     var startOffset = Calculator.getCircumferencePointOffset(center, radius, 0.0)
@@ -54,14 +54,11 @@ fun DrawScope.drawPolygonLine(
 }
 
 fun DrawScope.drawPolygon(
+    angleBetweenLines: Double,
     radius: Float,
     stats: List<Int>,
-    polygonColor: Color,
-    vertexCount: Int
+    polygonColor: Color
 ) {
-
-    // 정 다각형 꼭짓점을 찍기 위해 각도를 구한다.
-    val angleBetweenLines = PI * 2 / vertexCount
 
     // Offset 저장
     val statsOffsets = mutableListOf<Offset>()
@@ -88,14 +85,13 @@ fun DrawScope.drawPolygon(
 }
 
 fun DrawScope.drawLabels(
-    vertexCount: Int,
+    angleBetweenLines: Double,
     textMeasurer: TextMeasurer,
     labels: List<String>,
     style: TextStyle
 ) {
     // RadarChart TextOffset Calculation
     val labelRadius = (size.minDimension / 2)
-    val angleBetweenLines = PI * 2 / vertexCount
 
     labels.forEachIndexed { index, label ->
         val endOffsetAngle = angleBetweenLines * (index + 1)
