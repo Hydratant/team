@@ -45,13 +45,16 @@ fun RadarChart(
     if (vertexCount < 3)
         throw IllegalArgumentException("The minimum number of vertex count is 3.")
 
+    // 정 다각형 꼭짓점을 찍기 위해 각도를 구한다.
+    val angleBetweenLines = PI * 2 / vertexCount
+
+    // Label 계산을 위한 필드
     val textMeasurer = rememberTextMeasurer(radarValueMap.size)
     val maxLabelWidth =
         measureMaxLabelWidth(radarValueMap.keys.toList(), labelTextStyle, textMeasurer)
 
     val labelPadding = 10.dp.toPx()
-    // 정 다각형 꼭짓점을 찍기 위해 각도를 구한다.
-    val angleBetweenLines = PI * 2 / vertexCount
+
 
     Canvas(modifier = modifier) {
         val radius = (size.minDimension / 2) - maxLabelWidth - labelPadding
