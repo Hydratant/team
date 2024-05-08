@@ -65,6 +65,7 @@ fun StatRadarChart(
         radarValueMap = linkedHashMap,
         polygonLineColor = MaterialTheme.colorScheme.primary,
         polygonColor = MaterialTheme.colorScheme.secondary.copy(alpha = 0.6f),
+        polygonStrokeColor = MaterialTheme.colorScheme.secondary,
         labelTextStyle = MaterialTheme.typography.labelMedium.copy(color = MaterialTheme.colorScheme.secondary),
         modifier = Modifier
             .fillMaxWidth()

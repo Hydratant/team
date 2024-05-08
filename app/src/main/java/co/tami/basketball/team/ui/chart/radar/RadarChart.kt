@@ -5,12 +5,12 @@ package co.tami.basketball.team.ui.chart.radar
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextMeasurer
 import androidx.compose.ui.text.TextStyle
@@ -24,7 +24,8 @@ import kotlin.math.PI
 
 
 private val DEFAULT_STROKE_CAP: StrokeCap = StrokeCap.Round
-private val DEFAULT_STORK_SIZE: Dp = 1.dp
+private val DEFAULT_POLYGON_LINE_STORK_SIZE: Dp = 1.dp
+private val DEFAULT_POLYGON_STORK_SIZE: Dp = 1.dp
 private const val DEFAULT_SCALAR_STEPS = 5
 
 
@@ -33,10 +34,13 @@ fun RadarChart(
     radarValueMap: LinkedHashMap<String, Int>,
     polygonLineColor: Color,
     polygonColor: Color,
+    polygonStrokeColor: Color,
     labelTextStyle: TextStyle,
     modifier: Modifier = Modifier,
+    isPolygonStrokeShow: Boolean = true,
     scalarSteps: Int = DEFAULT_SCALAR_STEPS,
-    polygonLineStrokeWidth: Float = DEFAULT_STORK_SIZE.toPx(),
+    polygonLineStrokeWidth: Float = DEFAULT_POLYGON_LINE_STORK_SIZE.toPx(),
+    polygonStrokeWidth: Float = DEFAULT_POLYGON_STORK_SIZE.toPx(),
     polygonLineStrokeCap: StrokeCap = DEFAULT_STROKE_CAP
 ) {
 
@@ -87,6 +91,17 @@ fun RadarChart(
             stats = radarValueMap.values.toList(),
             polygonColor = polygonColor
         )
+
+        // Polygon Stroke 그리기
+        if (isPolygonStrokeShow) {
+            drawPolygon(
+                angleBetweenLines = angleBetweenLines,
+                radius = radius,
+                stats = radarValueMap.values.toList(),
+                polygonColor = polygonStrokeColor,
+                style = Stroke(polygonStrokeWidth)
+            )
+        }
     }
 }
 
@@ -131,6 +146,7 @@ fun DrawPolygonLinePreview2() {
             map,
             Color.Gray,
             Color(0x6022A3A0),
+            Color(0xFF22A3A0),
             MaterialTheme.typography.labelMedium.copy(color = MaterialTheme.colorScheme.secondary),
             modifier = Modifier
                 .fillMaxWidth()

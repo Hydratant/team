@@ -5,11 +5,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.DrawScope
+import androidx.compose.ui.graphics.drawscope.DrawStyle
+import androidx.compose.ui.graphics.drawscope.Fill
 import androidx.compose.ui.text.TextMeasurer
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.drawText
-import timber.log.Timber
-import kotlin.math.PI
 
 fun DrawScope.drawPolygonLine(
     radius: Float,
@@ -57,7 +57,8 @@ fun DrawScope.drawPolygon(
     angleBetweenLines: Double,
     radius: Float,
     stats: List<Int>,
-    polygonColor: Color
+    polygonColor: Color,
+    style: DrawStyle = Fill
 ) {
 
     // Offset 저장
@@ -80,7 +81,8 @@ fun DrawScope.drawPolygon(
     }
     drawPath(
         path = path,
-        color = polygonColor
+        color = polygonColor,
+        style = style
     )
 }
 
