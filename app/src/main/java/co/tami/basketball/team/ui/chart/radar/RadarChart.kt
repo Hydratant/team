@@ -5,6 +5,7 @@ package co.tami.basketball.team.ui.chart.radar
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -44,14 +45,16 @@ fun RadarChart(
     if (vertexCount < 3)
         throw IllegalArgumentException("The minimum number of vertex count is 3.")
 
-
     val textMeasurer = rememberTextMeasurer(radarValueMap.size)
+    val maxLabelWidth =
+        measureMaxLabelWidth(radarValueMap.keys.toList(), labelTextStyle, textMeasurer)
 
+    val labelPadding = 10.dp.toPx()
     // 정 다각형 꼭짓점을 찍기 위해 각도를 구한다.
     val angleBetweenLines = PI * 2 / vertexCount
 
     Canvas(modifier = modifier) {
-        val radius = (size.minDimension / 2)
+        val radius = (size.minDimension / 2) - maxLabelWidth - labelPadding
         for (index in 1..scalarSteps) {
             val radiusScalar = radius / scalarSteps * index
             // Polygon Line 그리기
@@ -69,6 +72,7 @@ fun RadarChart(
         drawLabels(
             angleBetweenLines = angleBetweenLines,
             textMeasurer = textMeasurer,
+            maxLabelWidth = maxLabelWidth,
             labels = radarValueMap.keys.toList(),
             style = labelTextStyle
         )
@@ -109,14 +113,14 @@ private fun measureMaxLabelWidth(
 @DarkLightModePreview
 fun DrawPolygonLinePreview2() {
     val map = linkedMapOf(
-        "label1" to 80,
-        "Party2" to 76,
-        "Party3" to 66,
-        "Party4" to 43,
-        "Party7" to 88,
-        "Party9" to 53,
-        "Party5" to 79,
-        "Party6" to 100
+        "STR1" to 80,
+        "STR2" to 76,
+        "STR3" to 66,
+        "STR4" to 43,
+        "STR5" to 88,
+        "STR6" to 53,
+        "STR7" to 79,
+        "STR8" to 100
     )
 
     SystemThemeSurface {
