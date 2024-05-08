@@ -5,6 +5,7 @@ package co.tami.basketball.team.ui.chart.radar
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -21,7 +22,6 @@ import co.tami.basketball.team.ext.toPx
 import co.tami.basketball.team.ui.common.DarkLightModePreview
 import co.tami.basketball.team.ui.common.SystemThemeSurface
 import kotlin.math.PI
-
 
 private val DEFAULT_STROKE_CAP: StrokeCap = StrokeCap.Round
 private val DEFAULT_POLYGON_LINE_STORK_SIZE: Dp = 1.dp
@@ -151,6 +151,7 @@ fun DrawPolygonLinePreview2() {
             modifier = Modifier
                 .fillMaxWidth()
                 .aspectRatio(1f)
+                .padding(30.dp)
         )
 
     }
