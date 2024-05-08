@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import co.tami.basketball.team.ext.toMap
 import co.tami.basketball.team.ui.chart.radar.RadarChart
 import co.tami.basketball.team.ui.common.VerticalSpacer
 
@@ -55,12 +56,16 @@ fun StatRadarChart(
     stats: List<Int>,
     labels: List<String>
 ) {
+    val linkedHashMap = linkedMapOf<String, Int>()
+    labels.forEachIndexed { index, label ->
+        val stat = stats[index]
+        linkedHashMap[label] = stat
+    }
     RadarChart(
-        lineColor = MaterialTheme.colorScheme.primary,
-        stats = stats,
-        statColor = MaterialTheme.colorScheme.secondary,
-        labels = labels,
-        textStyle = MaterialTheme.typography.labelMedium.copy(color = MaterialTheme.colorScheme.secondary),
+        radarValueMap = linkedHashMap,
+        polygonLineColor = MaterialTheme.colorScheme.primary,
+        polygonColor = MaterialTheme.colorScheme.secondary.copy(alpha = 0.6f),
+        labelTextStyle = MaterialTheme.typography.labelMedium.copy(color = MaterialTheme.colorScheme.secondary),
         modifier = Modifier
             .fillMaxWidth()
             .aspectRatio(1f)
