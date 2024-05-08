@@ -90,14 +90,14 @@ fun DrawScope.drawPolygon(
 fun DrawScope.drawLabels(
     vertexCount: Int,
     textMeasurer: TextMeasurer,
-    labes: List<String>,
+    labels: List<String>,
     style: TextStyle
 ) {
     // RadarChart TextOffset Calculation
     val labelRadius = (size.minDimension / 2)
     val angleBetweenLines = PI * 2 / vertexCount
 
-    labes.forEachIndexed { index, label ->
+    labels.forEachIndexed { index, label ->
         val endOffsetAngle = angleBetweenLines * (index + 1)
         val labelTopOffset =
             Calculator.getCircumferencePointOffset(center, labelRadius, endOffsetAngle)

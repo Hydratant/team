@@ -8,22 +8,17 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.StrokeCap
-import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextMeasurer
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.drawText
 import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import co.tami.basketball.team.ext.toPx
 import co.tami.basketball.team.ui.common.DarkLightModePreview
 import co.tami.basketball.team.ui.common.SystemThemeSurface
-import kotlin.math.PI
 
 
 private val DEFAULT_STROKE_CAP: StrokeCap = StrokeCap.Round
@@ -68,7 +63,7 @@ fun RadarChart(
         drawLabels(
             vertexCount = vertexCount,
             textMeasurer = textMeasurer,
-            labes = radarValueMap.keys.toList(),
+            labels = radarValueMap.keys.toList(),
             style = labelTextStyle
         )
 
@@ -112,6 +107,8 @@ fun DrawPolygonLinePreview2() {
         "Party2" to 76,
         "Party3" to 66,
         "Party4" to 43,
+        "Party7" to 88,
+        "Party9" to 53,
         "Party5" to 79,
         "Party6" to 100
     )
