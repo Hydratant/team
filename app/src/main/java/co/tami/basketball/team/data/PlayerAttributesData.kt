@@ -27,27 +27,27 @@ fun PlayerAttributesData.toAttributesList(): List<PlayerAttributeEntity> {
 
     val outSideScoringEntity = outsideScoringData
         .toMap()
-        .toPlayerAttributeEntity("OutSideScoring")
+        .toPlayerAttributeEntity("외부슛능력")
 
     val insideScoringEntity = insideScoringData
         .toMap()
-        .toPlayerAttributeEntity("InsideScoring")
+        .toPlayerAttributeEntity("내부슛능력")
 
     val athleticismEntity = athleticismData
         .toMap()
-        .toPlayerAttributeEntity("athleticism")
+        .toPlayerAttributeEntity("운동능력")
 
     val playMakingEntity = playMakingData
         .toMap()
-        .toPlayerAttributeEntity("playMaking")
+        .toPlayerAttributeEntity("플레이메이킹")
 
     val defendingEntity = defendingData
         .toMap()
-        .toPlayerAttributeEntity("defending")
+        .toPlayerAttributeEntity("수비능력")
 
     val reboundingEntity = reboundingData
         .toMap()
-        .toPlayerAttributeEntity("rebounding")
+        .toPlayerAttributeEntity("리바운드")
 
     return listOf(
         outSideScoringEntity,

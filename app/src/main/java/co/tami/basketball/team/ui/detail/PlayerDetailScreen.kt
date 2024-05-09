@@ -126,9 +126,9 @@ fun PlayerDetailScreen(
                 .padding(horizontal = 16.dp),
             horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            PlayerInfoCard(overRoll.value, "OVR", modifier = Modifier.weight(1f))
-            PlayerInfoCard(age.value, "AGE", modifier = Modifier.weight(1f))
-            PlayerInfoCard(jersey.value, "Jersey", modifier = Modifier.weight(1f))
+            PlayerInfoCard(overRoll.value, "능력치", modifier = Modifier.weight(1f))
+            PlayerInfoCard(age.value, "나이", modifier = Modifier.weight(1f))
+            PlayerInfoCard(jersey.value, "등번호", modifier = Modifier.weight(1f))
         }
 
         Divider(
@@ -143,8 +143,8 @@ fun PlayerDetailScreen(
         LazyVerticalGrid(
             modifier = Modifier.padding(horizontal = 16.dp),
             columns = GridCells.Fixed(3),
-            verticalArrangement = Arrangement.spacedBy(8.dp),
-            horizontalArrangement = Arrangement.spacedBy(32.dp)
+            verticalArrangement = Arrangement.spacedBy(32.dp),
+            horizontalArrangement = Arrangement.spacedBy(40.dp)
         ) {
             items(attributes.value) { item: PlayerAttributeEntity ->
                 PlayerStats(
