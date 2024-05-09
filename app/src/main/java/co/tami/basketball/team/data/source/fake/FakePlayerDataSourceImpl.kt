@@ -15,59 +15,58 @@ class FakePlayerDataSourceImpl : PlayerDataSource {
 
     private val lukaOutsideScoringData: OutsideScoringData =
         OutsideScoringData(
-            closeShot = 98,
-            midRangeShot = 87,
-            threePointShot = 88,
-            freeThrow = 83,
-            shotIQ = 98,
-            offensiveConsistency = 98,
+            클로즈슛 = 98,
+            미들슛 = 87,
+            삼점슛 = 88,
+            자유투 = 83,
+            슛센스 = 98,
+            공격일관성 = 98,
         )
 
     private val lukaInsideScoringData: InsideScoringData =
         InsideScoringData(
-            layup = 98,
-            postHook = 85,
-            postFad = 85,
-            postControl = 87,
-            drawFoul = 98,
-            hands = 98
+            레이업 = 98,
+            근접샷 = 85,
+            포스트페이드 = 85,
+            포스트동작 = 87,
+            파울유도 = 98,
+            볼소유 = 98
         )
 
     private val lukaAthleticismData: AthleticismData =
         AthleticismData(
-            speed = 84,
-            acceleration = 84,
-            strength = 72,
-            stamina = 98,
-            hustle = 98,
-            overallDurability = 85
+            속도 = 84,
+            가속 = 84,
+            힘 = 72,
+            내구성 = 98,
+            허슬 = 98
         )
 
     private val lukaPlayMakingData: PlayMakingData =
         PlayMakingData(
-            passAccuracy = 98,
-            ballHandle = 98,
-            speedWithBall = 83,
-            passIQ = 98,
-            passVision = 96
+            패스정확도 = 98,
+            볼핸들 = 98,
+            공이있을때속도 = 83,
+            패스센스 = 98,
+            패스시야 = 96
         )
 
     private val lukaDefendingData: DefendingData =
         DefendingData(
-            interiorDefense = 66,
-            perimeterDefense = 74,
-            steal = 59,
-            block = 65,
-            lateralQuickness = 75,
-            helpDefenseIQ = 74,
-            passPerception = 76,
-            defensiveConsistency = 75
+            내부방어 = 66,
+            외곽방어 = 74,
+            스틸 = 59,
+            블락 = 65,
+            측면신속성 = 75,
+            도움수비 = 74,
+            패스인식 = 76,
+            방어일관성 = 75
         )
 
     private val lukaReboundingData: ReboundingData =
         ReboundingData(
-            offensiveRebound = 68,
-            defensiveRebound = 81
+            공격리바운드 = 68,
+            수비리바운드 = 81
         )
 
 
