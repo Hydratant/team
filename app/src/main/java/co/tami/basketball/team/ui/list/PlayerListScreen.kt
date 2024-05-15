@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import co.tami.basketball.team.domain.entity.PlayerEntity
 import co.tami.basketball.team.ui.common.DarkLightModePreview
+import co.tami.basketball.team.ui.common.PlayerProfileImage
 import co.tami.basketball.team.ui.common.SystemThemeSurface
 
 
@@ -21,10 +22,10 @@ fun PlayerItem(
     ) {
 
         Column {
+            PlayerProfileImage(profileImage = "")
             Text(text = playerEntity.name)
             Text(text = playerEntity.age.toString())
         }
-
 
     }
 
