@@ -1,5 +1,6 @@
 package co.tami.basketball.team.ui.list
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.material3.Text
@@ -18,7 +19,9 @@ fun PlayerItem(
     onPlayerClick: ((PlayerEntity) -> Unit)? = null
 ) {
     Row(
-        modifier = modifier
+        modifier = modifier.clickable {
+            onPlayerClick?.invoke(playerEntity)
+        }
     ) {
 
         Column {
