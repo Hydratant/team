@@ -22,6 +22,7 @@ fun PlayerData.toEntity(): PlayerEntity {
         name,
         age,
         jersey,
+        image,
         positions.joinToString("/"),
         overRoll,
         attributes
