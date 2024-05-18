@@ -63,7 +63,8 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    PlayerListScreen(players)
+//                    PlayerListScreen(players)
+                    PlayerDetailScreen()
                 }
             }
         }

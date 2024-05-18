@@ -1,4 +1,4 @@
-@file:Suppress("NonAsciiCharacters", "PropertyName", "SpellCheckingInspection")
+@file:Suppress("NonAsciiCharacters", "PropertyName", "SpellCheckingInspection", "ClassName")
 
 package co.tami.basketball.team.data
 
@@ -7,12 +7,61 @@ import co.tami.basketball.team.ext.toMap
 import kotlinx.serialization.Serializable
 
 data class PlayerAttributesData(
-    val outsideScoringData: OutsideScoringData,
-    val insideScoringData: InsideScoringData,
-    val athleticismData: AthleticismData,
-    val playMakingData: PlayMakingData,
-    val defendingData: DefendingData,
-    val reboundingData: ReboundingData
+    val 피지컬: 피지컬데이터,
+    val 슛: 슛데이터,
+    val 컨트롤: 컨트롤데이터,
+    val 패스: 패스데이터,
+    val 수비: 수비데이터,
+    val 리바운드: 리바운드데이터
+)
+
+@Serializable
+data class 피지컬데이터(
+    val 힘: Int,
+    val 지구력: Int,
+    val 허슬: Int,
+    val 가속: Int,
+    val 속도: Int
+)
+
+@Serializable
+data class 슛데이터(
+    val _3점슛: Int,
+    val 센스: Int,
+    val 레이업: Int,
+    val 미들슛: Int,
+    val 자유투: Int,
+    val 포스트훅: Int
+)
+
+@Serializable
+data class 컨트롤데이터(
+    val 볼컨트롤: Int,
+    val 볼리시브: Int,
+    val 드리블속도: Int
+)
+
+@Serializable
+data class 패스데이터(
+    val 센스: Int,
+    val 정확도: Int,
+    val 시야: Int
+)
+
+@Serializable
+data class 수비데이터(
+    val 스틸: Int,
+    val 블락: Int,
+    val 박스아웃: Int,
+    val 도움수비: Int,
+    val 패스차단: Int
+)
+
+@Serializable
+data class 리바운드데이터(
+    val 수비: Int,
+    val 공격: Int,
+    val 볼키핑: Int
 )
 
 fun Map<String, Int>.toPlayerAttributeEntity(title: String): PlayerAttributeEntity {
@@ -25,27 +74,27 @@ fun Map<String, Int>.toPlayerAttributeEntity(title: String): PlayerAttributeEnti
 
 fun PlayerAttributesData.toAttributesList(): List<PlayerAttributeEntity> {
 
-    val outSideScoringEntity = outsideScoringData
+    val outSideScoringEntity = 피지컬
         .toMap()
-        .toPlayerAttributeEntity("외부슛능력")
+        .toPlayerAttributeEntity("피지컬")
 
-    val insideScoringEntity = insideScoringData
+    val insideScoringEntity = 슛
         .toMap()
-        .toPlayerAttributeEntity("내부슛능력")
+        .toPlayerAttributeEntity("슛")
 
-    val athleticismEntity = athleticismData
+    val athleticismEntity = 컨트롤
         .toMap()
-        .toPlayerAttributeEntity("운동능력")
+        .toPlayerAttributeEntity("컨트롤")
 
-    val playMakingEntity = playMakingData
+    val playMakingEntity = 패스
         .toMap()
-        .toPlayerAttributeEntity("플레이메이킹")
+        .toPlayerAttributeEntity("패스")
 
-    val defendingEntity = defendingData
+    val defendingEntity = 수비
         .toMap()
-        .toPlayerAttributeEntity("수비능력")
+        .toPlayerAttributeEntity("수비")
 
-    val reboundingEntity = reboundingData
+    val reboundingEntity = 리바운드
         .toMap()
         .toPlayerAttributeEntity("리바운드")
 
@@ -58,69 +107,3 @@ fun PlayerAttributesData.toAttributesList(): List<PlayerAttributeEntity> {
         reboundingEntity
     )
 }
-
-@Serializable
-data class OutsideScoringData(
-    val 클로즈슛: Int,
-    val 미들슛: Int,
-    val 삼점슛: Int,
-    val 자유투: Int,
-    val 슛센스: Int,
-    val 공격일관성: Int
-)
-
-/**
- *
- *
- * @property 레이업
- * @property 근접샷
- * @property 포스트페이드 포스트 업 자세에서 점프슛을 할 때 쓰는 것
- * @property 포스트동작 포스트 컨트롤은 드롭 스텝, 스핀 동작, 업 앤 언더, 피벗 및 업 페이크와 같은 포스트 동작을 위한 것입니다.
- * @property 파울유도
- * @property 볼소유
- */
-@Serializable
-data class InsideScoringData(
-    val 레이업: Int,
-    val 근접샷: Int,
-    val 포스트페이드: Int,
-    val 포스트동작: Int,
-    val 파울유도: Int,
-    val 볼소유: Int
-)
-
-@Serializable
-data class AthleticismData(
-    val 속도: Int,
-    val 가속: Int,
-    val 힘: Int,
-    val 내구성: Int,
-    val 허슬: Int
-)
-
-@Serializable
-data class PlayMakingData(
-    val 패스정확도: Int,
-    val 볼핸들: Int,
-    val 공이있을때속도: Int,
-    val 패스센스: Int,
-    val 패스시야: Int
-)
-
-@Serializable
-data class DefendingData(
-    val 내부방어: Int,
-    val 외곽방어: Int,
-    val 스틸: Int,
-    val 블락: Int,
-    val 측면신속성: Int,
-    val 도움수비: Int,
-    val 패스인식: Int,
-    val 방어일관성: Int
-)
-
-@Serializable
-data class ReboundingData(
-    val 공격리바운드: Int,
-    val 수비리바운드: Int
-)

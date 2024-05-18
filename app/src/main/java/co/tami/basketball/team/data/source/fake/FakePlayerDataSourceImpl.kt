@@ -1,83 +1,76 @@
 package co.tami.basketball.team.data.source.fake
 
-import co.tami.basketball.team.data.AthleticismData
-import co.tami.basketball.team.data.DefendingData
-import co.tami.basketball.team.data.InsideScoringData
-import co.tami.basketball.team.data.OutsideScoringData
-import co.tami.basketball.team.data.PlayMakingData
 import co.tami.basketball.team.data.PlayerAttributesData
 import co.tami.basketball.team.data.PlayerData
 import co.tami.basketball.team.data.PlayerPosition
-import co.tami.basketball.team.data.ReboundingData
 import co.tami.basketball.team.data.source.PlayerDataSource
+import co.tami.basketball.team.data.리바운드데이터
+import co.tami.basketball.team.data.수비데이터
+import co.tami.basketball.team.data.슛데이터
+import co.tami.basketball.team.data.컨트롤데이터
+import co.tami.basketball.team.data.패스데이터
+import co.tami.basketball.team.data.피지컬데이터
 
 class FakePlayerDataSourceImpl : PlayerDataSource {
 
-    private val lukaOutsideScoringData: OutsideScoringData =
-        OutsideScoringData(
-            클로즈슛 = 98,
-            미들슛 = 87,
-            삼점슛 = 88,
-            자유투 = 83,
-            슛센스 = 98,
-            공격일관성 = 98,
-        )
-
-    private val lukaInsideScoringData: InsideScoringData =
-        InsideScoringData(
-            레이업 = 98,
-            근접샷 = 85,
-            포스트페이드 = 85,
-            포스트동작 = 87,
-            파울유도 = 98,
-            볼소유 = 98
-        )
-
-    private val lukaAthleticismData: AthleticismData =
-        AthleticismData(
+    private val 루카피지컬: 피지컬데이터 =
+        피지컬데이터(
             속도 = 84,
             가속 = 84,
             힘 = 72,
-            내구성 = 98,
+            지구력 = 98,
             허슬 = 98
         )
 
-    private val lukaPlayMakingData: PlayMakingData =
-        PlayMakingData(
-            패스정확도 = 98,
-            볼핸들 = 98,
-            공이있을때속도 = 83,
-            패스센스 = 98,
-            패스시야 = 96
+    private val 루카슛: 슛데이터 =
+        슛데이터(
+            레이업 = 98,
+            미들슛 = 87,
+            _3점슛 = 88,
+            자유투 = 83,
+            포스트훅 = 98,
+            센스 = 98,
         )
 
-    private val lukaDefendingData: DefendingData =
-        DefendingData(
-            내부방어 = 66,
-            외곽방어 = 74,
+    private val 루카컨트롤: 컨트롤데이터 =
+        컨트롤데이터(
+            볼컨트롤 = 98,
+            볼리시브 = 98,
+            드리블속도 = 83
+        )
+
+    private val 루카패스: 패스데이터 =
+        패스데이터(
+            정확도 = 98,
+            센스 = 98,
+            시야 = 96
+        )
+
+    private val 루카수비: 수비데이터 =
+        수비데이터(
+            박스아웃 = 66,
             스틸 = 59,
             블락 = 65,
-            측면신속성 = 75,
             도움수비 = 74,
-            패스인식 = 76,
-            방어일관성 = 75
+            패스차단 = 76,
         )
 
-    private val lukaReboundingData: ReboundingData =
-        ReboundingData(
-            공격리바운드 = 68,
-            수비리바운드 = 81
+    private val 루카리바운드: 리바운드데이터 =
+        리바운드데이터(
+            공격 = 68,
+            수비 = 81,
+            볼키핑 = 73
         )
 
 
     private val lukaAttributesData: PlayerAttributesData =
         PlayerAttributesData(
-            outsideScoringData = lukaOutsideScoringData,
-            insideScoringData = lukaInsideScoringData,
-            athleticismData = lukaAthleticismData,
-            playMakingData = lukaPlayMakingData,
-            defendingData = lukaDefendingData,
-            reboundingData = lukaReboundingData
+            피지컬 = 루카피지컬,
+            슛 = 루카슛,
+            컨트롤 = 루카컨트롤,
+            패스 = 루카패스,
+            수비 = 루카수비,
+            리바운드 = 루카리바운드
         )
 
 
@@ -86,7 +79,10 @@ class FakePlayerDataSourceImpl : PlayerDataSource {
         name = "루카 돈치치",
         age = 34,
         jersey = 77,
-        positions = listOf(PlayerPosition.PG, PlayerPosition.SG),
+        image = "test",
+        positions = listOf(
+            PlayerPosition.PG, PlayerPosition.SG
+        ),
         attributes = lukaAttributesData
     )
 
