@@ -9,7 +9,6 @@ import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import co.tami.basketball.team.domain.entity.PlayerEntity
 import co.tami.basketball.team.ui.detail.PlayerDetailScreen
-import co.tami.basketball.team.ui.list.PlayerListScreen
 import co.tami.basketball.team.ui.theme.BasketballTeamTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -19,6 +18,7 @@ private val players = listOf(
         name = "name",
         age = 20,
         jersey = 1,
+        image = "image",
         positions = "SG/PG",
         overRoll = 1,
         attributes = emptyList()
@@ -28,6 +28,7 @@ private val players = listOf(
         name = "name",
         age = 20,
         jersey = 1,
+        image = "image",
         positions = "SG/PG",
         overRoll = 1,
         attributes = emptyList()
@@ -37,6 +38,7 @@ private val players = listOf(
         name = "name",
         age = 20,
         jersey = 1,
+        image = "image",
         positions = "SG/PG",
         overRoll = 1,
         attributes = emptyList()
@@ -46,6 +48,7 @@ private val players = listOf(
         name = "name",
         age = 20,
         jersey = 1,
+        image = "image",
         positions = "SG/PG",
         overRoll = 1,
         attributes = emptyList()

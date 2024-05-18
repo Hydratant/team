@@ -109,6 +109,7 @@ fun PlayerItemPreview() {
         name = "name",
         age = 20,
         jersey = 1,
+        image = "image",
         positions = "SG/PG",
         overRoll = 1,
         attributes = emptyList()
@@ -134,6 +135,7 @@ fun PlayerListScreenPreview() {
             name = "name",
             age = 20,
             jersey = 1,
+            image = "image",
             positions = "SG/PG",
             overRoll = 1,
             attributes = emptyList()
@@ -143,6 +145,7 @@ fun PlayerListScreenPreview() {
             name = "name",
             age = 20,
             jersey = 1,
+            image = "image",
             positions = "SG/PG",
             overRoll = 1,
             attributes = emptyList()
@@ -152,6 +155,7 @@ fun PlayerListScreenPreview() {
             name = "name",
             age = 20,
             jersey = 1,
+            image = "image",
             positions = "SG/PG",
             overRoll = 1,
             attributes = emptyList()
@@ -161,6 +165,7 @@ fun PlayerListScreenPreview() {
             name = "name",
             age = 20,
             jersey = 1,
+            image = "image",
             positions = "SG/PG",
             overRoll = 1,
             attributes = emptyList()

@@ -1,3 +1,5 @@
+@file:Suppress("NonAsciiCharacters", "PrivatePropertyName", "SpellCheckingInspection")
+
 package co.tami.basketball.team.data.source.fake
 
 import co.tami.basketball.team.data.PlayerAttributesData
