@@ -18,7 +18,7 @@ class PlayerDetailViewModel @Inject constructor(
     stateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    private val id = stateHandle.get<Long>(KEY_PLAYER_ID) ?: 1234L
+    private val id = stateHandle.get<Long>(KEY_PLAYER_ID) ?: 0L
 
     // 이름
     private val _name: MutableStateFlow<String> = MutableStateFlow("")

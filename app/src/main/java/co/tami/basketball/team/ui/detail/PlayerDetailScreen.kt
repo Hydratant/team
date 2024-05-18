@@ -41,7 +41,6 @@ import co.tami.basketball.team.ui.common.DarkLightModePreview
 import co.tami.basketball.team.ui.common.SystemThemeSurface
 import co.tami.basketball.team.ui.common.VerticalSpacer
 
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PlayerDetailScreen(
