@@ -72,38 +72,39 @@ fun Map<String, Int>.toPlayerAttributeEntity(title: String): PlayerAttributeEnti
     )
 }
 
+@Suppress("LocalVariableName")
 fun PlayerAttributesData.toAttributesList(): List<PlayerAttributeEntity> {
 
-    val outSideScoringEntity = 피지컬
+    val 피지컬 = 피지컬
         .toMap()
         .toPlayerAttributeEntity("피지컬")
 
-    val insideScoringEntity = 슛
+    val 슛 = 슛
         .toMap()
         .toPlayerAttributeEntity("슛")
 
-    val athleticismEntity = 컨트롤
+    val 컨트롤 = 컨트롤
         .toMap()
         .toPlayerAttributeEntity("컨트롤")
 
-    val playMakingEntity = 패스
+    val 패스 = 패스
         .toMap()
         .toPlayerAttributeEntity("패스")
 
-    val defendingEntity = 수비
+    val 수비 = 수비
         .toMap()
         .toPlayerAttributeEntity("수비")
 
-    val reboundingEntity = 리바운드
+    val 리바운드 = 리바운드
         .toMap()
         .toPlayerAttributeEntity("리바운드")
 
     return listOf(
-        outSideScoringEntity,
-        insideScoringEntity,
-        athleticismEntity,
-        playMakingEntity,
-        defendingEntity,
-        reboundingEntity
+        피지컬,
+        슛,
+        컨트롤,
+        패스,
+        수비,
+        리바운드
     )
 }
