@@ -7,17 +7,12 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -38,6 +33,7 @@ import co.tami.basketball.team.R
 import co.tami.basketball.team.domain.entity.PlayerAttributeEntity
 import co.tami.basketball.team.ui.chart.donut.DonutChart
 import co.tami.basketball.team.ui.common.DarkLightModePreview
+import co.tami.basketball.team.ui.common.PlayerInfoCard
 import co.tami.basketball.team.ui.common.SystemThemeSurface
 import co.tami.basketball.team.ui.common.VerticalSpacer
 
@@ -170,42 +166,6 @@ fun PlayerNameText(
     )
 }
 
-@ExperimentalMaterial3Api
-@Composable
-fun PlayerInfoCard(
-    value: String,
-    title: String,
-    modifier: Modifier = Modifier
-) {
-    Card(
-        modifier = modifier
-            .aspectRatio(1f)
-            .padding(8.dp),
-        elevation = CardDefaults.cardElevation(
-            defaultElevation = 10.dp
-        ),
-
-        ) {
-        Column(
-            modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Text(
-                text = value,
-                style = MaterialTheme.typography.displaySmall,
-                color = MaterialTheme.colorScheme.onBackground
-            )
-            Spacer(modifier = Modifier.height(4.dp))
-            Text(
-                text = title,
-                style = MaterialTheme.typography.titleMedium,
-                color = MaterialTheme.colorScheme.onBackground
-            )
-        }
-    }
-}
-
 
 @Composable
 fun PlayerStats(
@@ -250,19 +210,7 @@ fun DetailNamePreview() {
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
-@DarkLightModePreview
-@Composable
-fun PlayerInfoColumnPreview() {
-    SystemThemeSurface {
-        Row(modifier = Modifier.fillMaxWidth()) {
-            PlayerInfoCard("77", "OVR", modifier = Modifier.weight(1f))
-            PlayerInfoCard("31", "AGE", modifier = Modifier.weight(1f))
-            PlayerInfoCard("77", "Jersey", modifier = Modifier.weight(1f))
-        }
 
-    }
-}
 
 @DarkLightModePreview
 @Composable
@@ -272,9 +220,24 @@ fun PlayerStatsPreview() {
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(32.dp)
         ) {
-//            PlayerStats(stats = 88, statsTitle = "OutSide\nScoring", modifier = Modifier.weight(1f))
-//            PlayerStats(stats = 55, statsTitle = "OutSide\nScoring", modifier = Modifier.weight(1f))
-//            PlayerStats(stats = 78, statsTitle = "OutSide\nScoring", modifier = Modifier.weight(1f))
+            PlayerStats(
+                PlayerAttributeEntity(
+                    "슛", 89, mapOf("2P" to 77, "Dunk" to 77),
+                ),
+                modifier = Modifier.weight(1f)
+            )
+            PlayerStats(
+                PlayerAttributeEntity(
+                    "드리블", 89, mapOf("2P" to 77, "Dunk" to 77),
+                ),
+                modifier = Modifier.weight(1f)
+            )
+            PlayerStats(
+                PlayerAttributeEntity(
+                    "패스", 89, mapOf("2P" to 77, "Dunk" to 77),
+                ),
+                modifier = Modifier.weight(1f)
+            )
         }
     }
 }
