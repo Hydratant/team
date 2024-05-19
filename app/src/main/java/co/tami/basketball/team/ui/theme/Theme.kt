@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package co.tami.basketball.team.ui.theme
 import android.app.Activity
 import androidx.compose.foundation.isSystemInDarkTheme
