@@ -182,8 +182,8 @@ fun PlayerStats(
             DonutChart(
                 modifier = Modifier.align(Alignment.Center),
                 value = item.average.toFloat(),
-                selectColor = MaterialTheme.colorScheme.tertiary,
-                unSelectColor = MaterialTheme.colorScheme.tertiaryContainer
+                selectColor = MaterialTheme.colorScheme.primary,
+                unSelectColor = MaterialTheme.colorScheme.surfaceContainerHighest
             )
             Text(
                 modifier = Modifier.align(Alignment.Center),
@@ -209,7 +209,6 @@ fun DetailNamePreview() {
         PlayerNameText("루카 돈치치")
     }
 }
-
 
 
 @DarkLightModePreview

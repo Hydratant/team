@@ -1,5 +1,6 @@
 package co.tami.basketball.team.ui.common
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -27,6 +28,7 @@ fun PlayerInfoCard(
     title: String,
     modifier: Modifier = Modifier
 ) {
+    val textColor = MaterialTheme.colorScheme.onSurface
     Card(
         modifier = modifier
             .aspectRatio(1f)
@@ -37,24 +39,27 @@ fun PlayerInfoCard(
 
         ) {
         Column(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier
+                .fillMaxSize()
+                .background(MaterialTheme.colorScheme.surfaceBright),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
                 text = value,
                 style = MaterialTheme.typography.displaySmall,
-                color = MaterialTheme.colorScheme.onBackground
+                color = textColor
             )
             Spacer(modifier = Modifier.height(4.dp))
             Text(
                 text = title,
                 style = MaterialTheme.typography.titleMedium,
-                color = MaterialTheme.colorScheme.onBackground
+                color = textColor
             )
         }
     }
 }
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @DarkLightModePreview

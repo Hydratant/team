@@ -2,23 +2,23 @@
 ## Plugin
 androidGradlePlugin = "8.2.1"
 kotlin = "1.9.20"
-googleServices = "4.4.0"
+googleServices = "4.4.1"
 
 ## Android
-androidxCore = "1.12.0"
+androidxCore = "1.13.1"
 androidxLifeCycle = "2.7.0"
-androidxActivityCompose = "1.8.2"
-androidxNavigation = "2.7.6"
+androidxActivityCompose = "1.9.0"
+androidxNavigation = "2.7.7"
 
 ## Kotlin
 kotlinSerializationJson = "1.6.0"
 
 ## Compose
-androidxComposeBom = "2023.10.01"
+androidxComposeBom = "2024.05.00"
 
 ## Hilt
 hilt = "2.50"
-hiltNavigationCompose = "1.1.0"
+hiltNavigationCompose = "1.2.0"
 
 ## Test
 junit = "4.13.2"
@@ -80,7 +80,7 @@ room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 
 ## Firebase
-firebase-bom = "com.google.firebase:firebase-bom:32.7.1"
+firebase-bom = "com.google.firebase:firebase-bom:33.0.0"
 firebase-auth = { module = "com.google.firebase:firebase-auth-ktx" }
 firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
 
