@@ -121,9 +121,9 @@ fun PlayerDetailScreen(
                 .padding(horizontal = 16.dp),
             horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            PlayerInfoCard(overRoll.value, "능력치", modifier = Modifier.weight(1f))
-            PlayerInfoCard(age.value, "나이", modifier = Modifier.weight(1f))
-            PlayerInfoCard(jersey.value, "등번호", modifier = Modifier.weight(1f))
+            PlayerInfoCard(overRoll.value, title = "능력치", modifier = Modifier.weight(1f))
+            PlayerInfoCard(age.value, title = "나이", modifier = Modifier.weight(1f))
+            PlayerInfoCard(jersey.value, title = "등번호", modifier = Modifier.weight(1f))
         }
 
         HorizontalDivider(

@@ -9,6 +9,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import co.tami.basketball.team.domain.entity.PlayerEntity
 import co.tami.basketball.team.ui.detail.PlayerDetailScreen
+import co.tami.basketball.team.ui.list.PlayerListScreen
 import co.tami.basketball.team.ui.theme.BasketballTeamTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -66,8 +67,8 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-//                    PlayerListScreen(players)
-                    PlayerDetailScreen()
+                    PlayerListScreen(players)
+//                    PlayerDetailScreen()
                 }
             }
         }

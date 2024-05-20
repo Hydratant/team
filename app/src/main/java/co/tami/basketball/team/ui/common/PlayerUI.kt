@@ -25,8 +25,8 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun PlayerInfoCard(
     value: String,
-    title: String,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    title: String = "",
 ) {
     val textColor = MaterialTheme.colorScheme.onSurface
     Card(
@@ -50,12 +50,15 @@ fun PlayerInfoCard(
                 style = MaterialTheme.typography.displaySmall,
                 color = textColor
             )
-            Spacer(modifier = Modifier.height(4.dp))
-            Text(
-                text = title,
-                style = MaterialTheme.typography.titleMedium,
-                color = textColor
-            )
+            if (title.isNotEmpty()) {
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(
+                    text = title,
+                    style = MaterialTheme.typography.titleMedium,
+                    color = textColor
+                )
+            }
+
         }
     }
 }
@@ -67,9 +70,9 @@ fun PlayerInfoCard(
 fun PlayerInfoColumnPreview() {
     SystemThemeSurface {
         Row(modifier = Modifier.fillMaxWidth()) {
-            PlayerInfoCard("86", "오버롤", modifier = Modifier.weight(1f))
-            PlayerInfoCard("31", "나이", modifier = Modifier.weight(1f))
-            PlayerInfoCard("77", "등번호", modifier = Modifier.weight(1f))
+            PlayerInfoCard("86", title = "오버롤", modifier = Modifier.weight(1f))
+            PlayerInfoCard("31", title = "나이", modifier = Modifier.weight(1f))
+            PlayerInfoCard("77", title = "등번호", modifier = Modifier.weight(1f))
         }
     }
 }
