@@ -34,6 +34,7 @@ import co.tami.basketball.team.ui.common.DarkLightModePreview
 import co.tami.basketball.team.ui.common.HorizontalSpacer
 import co.tami.basketball.team.ui.common.PlayerInfoCard
 import co.tami.basketball.team.ui.common.SystemThemeSurface
+import co.tami.basketball.team.ui.common.VerticalSpacer
 
 
 @Composable
@@ -96,12 +97,12 @@ fun PlayerItem(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
 
-
                 Text(
                     modifier = Modifier.fillMaxWidth(),
                     text = playerEntity.name,
-                    style = MaterialTheme.typography.headlineMedium
+                    style = MaterialTheme.typography.titleLarge
                 )
+                VerticalSpacer(size = 2.dp)
                 Text(
                     modifier = Modifier.fillMaxWidth(),
                     text = playerEntity.positions,
@@ -109,7 +110,11 @@ fun PlayerItem(
                 )
             }
 
-            PlayerInfoCard(value = "86", title = "", modifier = Modifier.size(80.dp))
+            HorizontalSpacer(size = 4.dp)
+            PlayerInfoCard(
+                value = playerEntity.overRoll.toString(),
+                modifier = Modifier.size(80.dp)
+            )
         }
 
 
@@ -147,42 +152,42 @@ fun PlayerListScreenPreview() {
     val players = listOf(
         PlayerEntity(
             id = 1,
-            name = "name",
+            name = "루카 돈치치",
             age = 20,
             jersey = 1,
             image = "image",
             positions = "SG/PG",
-            overRoll = 1,
+            overRoll = 34,
             attributes = emptyList()
         ),
         PlayerEntity(
             id = 2,
-            name = "name",
+            name = "카이리 어빙",
             age = 20,
             jersey = 1,
             image = "image",
             positions = "SG/PG",
-            overRoll = 1,
+            overRoll = 88,
             attributes = emptyList()
         ),
         PlayerEntity(
             id = 3,
-            name = "name",
+            name = "요키치",
             age = 20,
             jersey = 1,
             image = "image",
             positions = "SG/PG",
-            overRoll = 1,
+            overRoll = 97,
             attributes = emptyList()
         ),
         PlayerEntity(
             id = 4,
-            name = "name",
+            name = "르브론 제임스",
             age = 20,
             jersey = 1,
             image = "image",
             positions = "SG/PG",
-            overRoll = 1,
+            overRoll = 76,
             attributes = emptyList()
         ),
     )
