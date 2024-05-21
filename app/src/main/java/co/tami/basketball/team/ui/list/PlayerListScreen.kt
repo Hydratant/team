@@ -28,6 +28,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import co.tami.basketball.team.R
 import co.tami.basketball.team.domain.entity.PlayerEntity
 import co.tami.basketball.team.ui.common.DarkLightModePreview
@@ -39,19 +41,18 @@ import co.tami.basketball.team.ui.common.VerticalSpacer
 
 @Composable
 fun PlayerListScreen(
-    players: List<PlayerEntity>,
-    onPlayerClick: ((PlayerEntity) -> Unit)? = null
+    vm: PlayerListViewModel = hiltViewModel()
 ) {
+    val players = vm.players.collectAsStateWithLifecycle()
     LazyColumn(
         modifier = Modifier.padding(
             horizontal = 16.dp
         ),
     ) {
-        items(players) { player: PlayerEntity ->
+        items(players.value) { player: PlayerEntity ->
             PlayerItem(
                 playerEntity = player,
-                modifier = Modifier.padding(8.dp),
-                onPlayerClick = onPlayerClick
+                modifier = Modifier.padding(8.dp)
             )
         }
     }
@@ -192,6 +193,6 @@ fun PlayerListScreenPreview() {
         ),
     )
     SystemThemeSurface {
-        PlayerListScreen(players = players)
+//        PlayerListScreen(players = players)
     }
 }
