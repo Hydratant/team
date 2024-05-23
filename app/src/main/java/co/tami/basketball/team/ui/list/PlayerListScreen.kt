@@ -45,9 +45,10 @@ fun PlayerListScreen(
 ) {
     val players = vm.players.collectAsStateWithLifecycle()
     LazyColumn(
-        modifier = Modifier.padding(
-            horizontal = 16.dp
-        ),
+        modifier = Modifier
+            .padding(
+                horizontal = 16.dp
+            ),
     ) {
         items(players.value) { player: PlayerEntity ->
             PlayerItem(
@@ -82,7 +83,7 @@ fun PlayerItem(
         ) {
             Image(
                 modifier = Modifier
-                    .size(70.dp)
+                    .size(75.dp)
                     .aspectRatio(1f)
                     .clip(CircleShape)
                     .border(1.dp, Color.Gray, CircleShape),
