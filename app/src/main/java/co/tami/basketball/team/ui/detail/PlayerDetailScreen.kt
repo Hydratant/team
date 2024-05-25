@@ -37,13 +37,10 @@ import co.tami.basketball.team.ui.common.PlayerInfoCard
 import co.tami.basketball.team.ui.common.SystemThemeSurface
 import co.tami.basketball.team.ui.common.VerticalSpacer
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PlayerDetailScreen(
-    modifier: Modifier = Modifier,
+fun PlayerDetailContainer(
     vm: PlayerDetailViewModel = hiltViewModel()
 ) {
-
     // Collect State
     val name: State<String> = vm.name.collectAsStateWithLifecycle()
     val position: State<String> = vm.position.collectAsStateWithLifecycle()
@@ -52,6 +49,29 @@ fun PlayerDetailScreen(
     val overRoll: State<String> = vm.overRoll.collectAsStateWithLifecycle()
     val attributes: State<List<PlayerAttributeEntity>> = vm.attributes.collectAsStateWithLifecycle()
 
+    PlayerDetailScreen(
+        name = name.value,
+        position = position.value,
+        age = age.value,
+        jersey = jersey.value,
+        overRoll = overRoll.value,
+        attributes = attributes.value
+    )
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun PlayerDetailScreen(
+    name: String,
+    position: String,
+    age: String,
+    jersey: String,
+    overRoll: String,
+    attributes: List<PlayerAttributeEntity>,
+
+    modifier: Modifier = Modifier,
+    vm: PlayerDetailViewModel = hiltViewModel()
+) {
     // BottomSheet
     val bottomSheetEvent = vm.bottomSheetEvent.collectAsStateWithLifecycle()
     when (bottomSheetEvent.value) {
@@ -98,14 +118,14 @@ fun PlayerDetailScreen(
                     .padding(bottom = 24.dp, start = 24.dp)
             ) {
                 PlayerNameText(
-                    name = name.value,
+                    name = name,
                     modifier = Modifier.background(Color.Black.copy(alpha = 0.5f))
                 )
 
                 VerticalSpacer(size = 4.dp)
                 Text(
                     modifier = Modifier.background(Color.Black.copy(alpha = 0.5f)),
-                    text = position.value,
+                    text = position,
                     style = MaterialTheme.typography.headlineSmall
                 )
             }
@@ -121,9 +141,9 @@ fun PlayerDetailScreen(
                 .padding(horizontal = 16.dp),
             horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            PlayerInfoCard(overRoll.value, title = "능력치", modifier = Modifier.weight(1f))
-            PlayerInfoCard(age.value, title = "나이", modifier = Modifier.weight(1f))
-            PlayerInfoCard(jersey.value, title = "등번호", modifier = Modifier.weight(1f))
+            PlayerInfoCard(overRoll, title = "능력치", modifier = Modifier.weight(1f))
+            PlayerInfoCard(age, title = "나이", modifier = Modifier.weight(1f))
+            PlayerInfoCard(jersey, title = "등번호", modifier = Modifier.weight(1f))
         }
 
         HorizontalDivider(
@@ -141,7 +161,7 @@ fun PlayerDetailScreen(
             verticalArrangement = Arrangement.spacedBy(32.dp),
             horizontalArrangement = Arrangement.spacedBy(40.dp)
         ) {
-            items(attributes.value) { item: PlayerAttributeEntity ->
+            items(attributes) { item: PlayerAttributeEntity ->
                 PlayerStats(
                     item = item,
                     onStatClick = { entity: PlayerAttributeEntity ->

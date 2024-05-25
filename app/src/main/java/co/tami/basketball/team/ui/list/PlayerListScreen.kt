@@ -41,15 +41,20 @@ import co.tami.basketball.team.ui.common.VerticalSpacer
 
 @Composable
 fun PlayerListContainer(
-    vm: PlayerListViewModel = hiltViewModel()
+    vm: PlayerListViewModel = hiltViewModel(),
+    onPlayerClick: ((PlayerEntity) -> Unit)? = null
 ) {
     val players = vm.players.collectAsStateWithLifecycle()
-    PlayerListScreen(players = players.value)
+    PlayerListScreen(
+        players = players.value,
+        onPlayerClick = onPlayerClick
+    )
 }
 
 @Composable
 fun PlayerListScreen(
-    players: List<PlayerEntity>
+    players: List<PlayerEntity>,
+    onPlayerClick: ((PlayerEntity) -> Unit)? = null
 ) {
 
     LazyColumn(
@@ -63,7 +68,8 @@ fun PlayerListScreen(
                 playerEntity = player,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(8.dp)
+                    .padding(8.dp),
+                onPlayerClick = onPlayerClick
             )
         }
     }

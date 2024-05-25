@@ -8,6 +8,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import co.tami.basketball.team.ui.detail.PlayerDetailContainer
 import co.tami.basketball.team.ui.list.PlayerListContainer
 
 
@@ -38,10 +39,12 @@ fun TeamNavHost(
     ) {
 
         composable(TeamDestination.List.name) {
-            PlayerListContainer()
+            PlayerListContainer(
+                onPlayerClick = { navController.navigate(TeamDestination.Detail.name) }
+            )
         }
         composable(TeamDestination.Detail.name) {
-            PlayerListContainer()
+            PlayerDetailContainer()
         }
     }
 }
