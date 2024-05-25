@@ -40,20 +40,30 @@ import co.tami.basketball.team.ui.common.VerticalSpacer
 
 
 @Composable
-fun PlayerListScreen(
+fun PlayerListContainer(
     vm: PlayerListViewModel = hiltViewModel()
 ) {
     val players = vm.players.collectAsStateWithLifecycle()
+    PlayerListScreen(players = players.value)
+}
+
+@Composable
+fun PlayerListScreen(
+    players: List<PlayerEntity>
+) {
+
     LazyColumn(
         modifier = Modifier
             .padding(
                 horizontal = 16.dp
             ),
     ) {
-        items(players.value) { player: PlayerEntity ->
+        items(players) { player: PlayerEntity ->
             PlayerItem(
                 playerEntity = player,
-                modifier = Modifier.padding(8.dp)
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp)
             )
         }
     }
@@ -68,7 +78,6 @@ fun PlayerItem(
 ) {
 
     Card(modifier = modifier
-        .fillMaxWidth()
         .clickable {
             onPlayerClick?.invoke(playerEntity)
         }) {
@@ -83,7 +92,7 @@ fun PlayerItem(
         ) {
             Image(
                 modifier = Modifier
-                    .size(75.dp)
+                    .size(70.dp)
                     .aspectRatio(1f)
                     .clip(CircleShape)
                     .border(1.dp, Color.Gray, CircleShape),
@@ -102,20 +111,21 @@ fun PlayerItem(
                 Text(
                     modifier = Modifier.fillMaxWidth(),
                     text = playerEntity.name,
-                    style = MaterialTheme.typography.titleLarge
+                    style = MaterialTheme.typography.titleMedium
                 )
                 VerticalSpacer(size = 2.dp)
                 Text(
                     modifier = Modifier.fillMaxWidth(),
                     text = playerEntity.positions,
-                    style = MaterialTheme.typography.headlineSmall
+                    style = MaterialTheme.typography.titleLarge
                 )
             }
 
             HorizontalSpacer(size = 4.dp)
             PlayerInfoCard(
                 value = playerEntity.overRoll.toString(),
-                modifier = Modifier.size(80.dp)
+                modifier = Modifier.size(70.dp),
+                valueTextStyle = MaterialTheme.typography.headlineMedium,
             )
         }
 
@@ -140,7 +150,6 @@ fun PlayerItemPreview() {
     SystemThemeSurface {
         Box(
             modifier = Modifier
-                .fillMaxWidth()
                 .padding(8.dp)
         ) {
             PlayerItem(entity)
@@ -194,6 +203,6 @@ fun PlayerListScreenPreview() {
         ),
     )
     SystemThemeSurface {
-//        PlayerListScreen(players = players)
+        PlayerListScreen(players = players)
     }
 }

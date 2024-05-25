@@ -18,6 +18,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 
 
@@ -27,6 +28,8 @@ fun PlayerInfoCard(
     value: String,
     modifier: Modifier = Modifier,
     title: String = "",
+    valueTextStyle: TextStyle = MaterialTheme.typography.displaySmall,
+    titleTextStyle: TextStyle = MaterialTheme.typography.titleMedium
 ) {
     val textColor = MaterialTheme.colorScheme.onSurface
     Card(
@@ -47,14 +50,14 @@ fun PlayerInfoCard(
         ) {
             Text(
                 text = value,
-                style = MaterialTheme.typography.displaySmall,
+                style = valueTextStyle,
                 color = textColor
             )
             if (title.isNotEmpty()) {
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
                     text = title,
-                    style = MaterialTheme.typography.titleMedium,
+                    style = titleTextStyle,
                     color = textColor
                 )
             }
