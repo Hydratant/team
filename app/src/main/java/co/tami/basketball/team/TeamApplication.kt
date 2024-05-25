@@ -7,7 +7,7 @@ import timber.log.Timber
 
 
 @HiltAndroidApp
-class TeamApp : Application() {
+class TeamApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
