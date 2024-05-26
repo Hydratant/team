@@ -3,6 +3,7 @@ package co.tami.basketball.team.ui.detail
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
@@ -38,6 +39,11 @@ fun PlayerProgressStatBottomSheet(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+
+            Text(
+                text = title,
+                style = MaterialTheme.typography.titleMedium,
+            )
 
             stats.forEachIndexed { index: Int, stat: Int ->
                 Text(text = labels[index])
