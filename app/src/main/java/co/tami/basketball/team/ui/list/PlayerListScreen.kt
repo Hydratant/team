@@ -59,9 +59,7 @@ fun PlayerListScreen(
 
     LazyColumn(
         modifier = Modifier
-            .padding(
-                horizontal = 16.dp
-            ),
+            .padding(16.dp),
     ) {
         items(players) { player: PlayerEntity ->
             PlayerItem(
