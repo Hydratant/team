@@ -35,7 +35,7 @@ object PlayerModule {
     @Singleton
     @Provides
     fun providePlayerRepository(
-        @FakePlayerDataSource playerDataSource: PlayerDataSource
+        @FirebasePlayerDataSource playerDataSource: PlayerDataSource
     ): PlayerRepository =
         PlayerRepositoryImpl(playerDataSource)
 

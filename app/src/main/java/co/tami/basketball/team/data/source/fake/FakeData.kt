@@ -85,7 +85,7 @@ val lukaPlayer: PlayerData = PlayerData(
     positions = listOf(
         PlayerPosition.PG, PlayerPosition.SG
     ),
-    attributes = lukaAttributesData
+    playerAttributes = lukaAttributesData
 )
 
 
@@ -159,5 +159,5 @@ val 박상혁: PlayerData = PlayerData(
     positions = listOf(
         PlayerPosition.PG, PlayerPosition.SF
     ),
-    attributes = 상혁데이터
+    playerAttributes = 상혁데이터
 )
