@@ -6,5 +6,5 @@ import kotlinx.coroutines.flow.Flow
 interface PlayerRepository {
 
     fun getPlayers(): Flow<List<PlayerEntity>>
-    suspend fun getPlayer(id: Long): PlayerEntity
+    suspend fun getPlayer(id: String): PlayerEntity
 }

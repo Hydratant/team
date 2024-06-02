@@ -10,7 +10,7 @@ class FakePlayerDataSourceImpl : PlayerDataSource {
 
     override suspend fun getPlayers(): List<PlayerData> = fakedPlayers
 
-    override suspend fun getPlayer(id: Long): PlayerData =
+    override suspend fun getPlayer(id: String): PlayerData =
         fakedPlayers.find { player: PlayerData -> player.id == id }
             ?: throw IllegalArgumentException("Player not found")
 }

@@ -22,7 +22,7 @@ class FirebasePlayerDataSourceImpl(
                 }
         }
 
-    override suspend fun getPlayer(id: Long): PlayerData {
+    override suspend fun getPlayer(id: String): PlayerData {
         TODO("Not yet implemented")
     }
 

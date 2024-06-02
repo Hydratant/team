@@ -77,7 +77,7 @@ private val lukaAttributesData: PlayerAttributesData =
 
 
 val lukaPlayer: PlayerData = PlayerData(
-    id = 0,
+    id = "0",
     name = "루카 돈치치",
     age = 34,
     jersey = 77,
@@ -151,7 +151,7 @@ private val 상혁데이터: PlayerAttributesData =
 
 
 val 박상혁: PlayerData = PlayerData(
-    id = 1,
+    id = "1",
     name = "박상혁",
     age = 34,
     jersey = 17,

@@ -3,7 +3,7 @@ package co.tami.basketball.team.data
 import co.tami.basketball.team.domain.entity.PlayerEntity
 
 data class PlayerData(
-    val id: Long = 0,
+    val id: String = "",
     val name: String = "",
     val age: Int = -1,
     val jersey: Int = -1,

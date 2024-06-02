@@ -18,7 +18,7 @@ class PlayerDetailViewModel @Inject constructor(
     stateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    private val id = stateHandle.get<Long>(KEY_PLAYER_ID) ?: 0L
+    private val id = stateHandle.get<String>(KEY_PLAYER_ID) ?: ""
 
     // 이름
     private val _name: MutableStateFlow<String> = MutableStateFlow("")
@@ -55,7 +55,7 @@ class PlayerDetailViewModel @Inject constructor(
     private fun getPlayer() {
         viewModelScope.launch {
             // TODO : id 가 Null 이 아닐 경우 오류 메세지 후 Finish
-            id.let { id: Long ->
+            id.let { id: String ->
                 val player = playerRepository.getPlayer(id)
                 _name.value = player.name
                 _age.value = player.age.toString()
