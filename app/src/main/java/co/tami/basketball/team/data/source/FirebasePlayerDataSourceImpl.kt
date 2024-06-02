@@ -22,9 +22,24 @@ class FirebasePlayerDataSourceImpl(
                 }
         }
 
-    override suspend fun getPlayer(id: String): PlayerData {
-        TODO("Not yet implemented")
-    }
+    override suspend fun getPlayer(id: String): PlayerData =
+        suspendCancellableCoroutine { continuation ->
+            db.collection(KEY_TEAM_COLLECTION_NAME).document(id)
+                .get()
+                .addOnSuccessListener { result ->
+                    val player: PlayerData? = result.toObject(PlayerData::class.java)
+
+                    // Player를 찾이 못 할 경우 예외를 발생시킨다.
+                    if (player == null) {
+                        continuation.resumeWithException(IllegalArgumentException("Player not found"))
+                        return@addOnSuccessListener
+                    }
+                    // Player Resume
+                    continuation.resume(player)
+                }.addOnFailureListener { exception ->
+                    continuation.resumeWithException(exception)
+                }
+        }
 
     companion object {
         private const val KEY_TEAM_COLLECTION_NAME = "유리수"
