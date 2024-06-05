@@ -6,8 +6,11 @@ import androidx.lifecycle.viewModelScope
 import co.tami.basketball.team.data.repo.PlayerRepository
 import co.tami.basketball.team.domain.entity.PlayerAttributeEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -47,6 +50,9 @@ class PlayerDetailViewModel @Inject constructor(
 
     private val _bottomSheetEvent = MutableStateFlow<BottomSheetEvent>(BottomSheetEvent.Hide)
     val bottomSheetEvent: StateFlow<BottomSheetEvent> get() = _bottomSheetEvent.asStateFlow()
+
+    private val _event = MutableSharedFlow<Event>()
+    val event: SharedFlow<Event> get() = _event.asSharedFlow()
 
     init {
         getPlayer()
