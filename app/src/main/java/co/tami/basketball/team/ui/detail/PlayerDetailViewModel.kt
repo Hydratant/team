@@ -83,4 +83,8 @@ class PlayerDetailViewModel @Inject constructor(
         data class Show(val item: PlayerAttributeEntity) : BottomSheetEvent()
         data object Hide : BottomSheetEvent()
     }
+
+    sealed class Event {
+        data object Finish : Event()
+    }
 }
