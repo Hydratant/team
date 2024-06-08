@@ -44,7 +44,7 @@ fun TeamNavHost(
             )
         }
         composable(TeamDestination.Detail.name) {
-            PlayerDetailContainer()
+            PlayerDetailContainer(navController = navController)
         }
     }
 }

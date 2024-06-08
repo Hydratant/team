@@ -18,6 +18,7 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -28,7 +29,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavHostController
 import co.tami.basketball.team.R
 import co.tami.basketball.team.domain.entity.PlayerAttributeEntity
 import co.tami.basketball.team.ui.chart.donut.DonutChart
@@ -36,9 +39,11 @@ import co.tami.basketball.team.ui.common.DarkLightModePreview
 import co.tami.basketball.team.ui.common.PlayerInfoCard
 import co.tami.basketball.team.ui.common.SystemThemeSurface
 import co.tami.basketball.team.ui.common.VerticalSpacer
+import timber.log.Timber
 
 @Composable
 fun PlayerDetailContainer(
+    navController: NavHostController,
     vm: PlayerDetailViewModel = hiltViewModel()
 ) {
     // Collect State
@@ -48,6 +53,18 @@ fun PlayerDetailContainer(
     val jersey: State<String> = vm.jersey.collectAsStateWithLifecycle()
     val overRoll: State<String> = vm.overRoll.collectAsStateWithLifecycle()
     val attributes: State<List<PlayerAttributeEntity>> = vm.attributes.collectAsStateWithLifecycle()
+
+    LaunchedEffect(key1 = vm.event) {
+        vm.event.collect { event: PlayerDetailViewModel.Event ->
+            when (event) {
+                is PlayerDetailViewModel.Event.Finish -> {
+                    Timber.i("Finish Call")
+                    // Navigation Back
+                    navController.popBackStack()
+                }
+            }
+        }
+    }
 
     PlayerDetailScreen(
         name = name.value,
