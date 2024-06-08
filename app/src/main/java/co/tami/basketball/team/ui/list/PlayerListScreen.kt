@@ -142,7 +142,7 @@ fun PlayerItem(
 @Composable
 fun PlayerItemPreview() {
     val entity = PlayerEntity(
-        id = 1,
+        id = "1",
         name = "name",
         age = 20,
         jersey = 1,
@@ -166,7 +166,7 @@ fun PlayerItemPreview() {
 fun PlayerListScreenPreview() {
     val players = listOf(
         PlayerEntity(
-            id = 1,
+            id = "1",
             name = "루카 돈치치",
             age = 20,
             jersey = 1,
@@ -176,7 +176,7 @@ fun PlayerListScreenPreview() {
             attributes = emptyList()
         ),
         PlayerEntity(
-            id = 2,
+            id = "2",
             name = "카이리 어빙",
             age = 20,
             jersey = 1,
@@ -186,7 +186,7 @@ fun PlayerListScreenPreview() {
             attributes = emptyList()
         ),
         PlayerEntity(
-            id = 3,
+            id = "3",
             name = "요키치",
             age = 20,
             jersey = 1,
@@ -196,7 +196,7 @@ fun PlayerListScreenPreview() {
             attributes = emptyList()
         ),
         PlayerEntity(
-            id = 4,
+            id = "4",
             name = "르브론 제임스",
             age = 20,
             jersey = 1,

@@ -14,6 +14,6 @@ class PlayerRepositoryImpl(
         emit(playerDataSource.getPlayers().map { data: PlayerData -> data.toEntity() })
     }
 
-    override suspend fun getPlayer(id: Long): PlayerEntity =
+    override suspend fun getPlayer(id: String): PlayerEntity =
         playerDataSource.getPlayer(id).toEntity()
 }

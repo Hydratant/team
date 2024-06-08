@@ -6,8 +6,11 @@ import androidx.lifecycle.viewModelScope
 import co.tami.basketball.team.data.repo.PlayerRepository
 import co.tami.basketball.team.domain.entity.PlayerAttributeEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -18,7 +21,7 @@ class PlayerDetailViewModel @Inject constructor(
     stateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    private val id = stateHandle.get<Long>(KEY_PLAYER_ID) ?: 0L
+    private val id = stateHandle.get<String>(KEY_PLAYER_ID) ?: "FFJ9BBWZLxBwE8HTZCS5"
 
     // 이름
     private val _name: MutableStateFlow<String> = MutableStateFlow("")
@@ -48,14 +51,17 @@ class PlayerDetailViewModel @Inject constructor(
     private val _bottomSheetEvent = MutableStateFlow<BottomSheetEvent>(BottomSheetEvent.Hide)
     val bottomSheetEvent: StateFlow<BottomSheetEvent> get() = _bottomSheetEvent.asStateFlow()
 
+    private val _event = MutableSharedFlow<Event>()
+    val event: SharedFlow<Event> get() = _event.asSharedFlow()
+
     init {
         getPlayer()
     }
 
     private fun getPlayer() {
         viewModelScope.launch {
-            // TODO : id 가 Null 이 아닐 경우 오류 메세지 후 Finish
-            id.let { id: Long ->
+
+            id.let { id: String ->
                 val player = playerRepository.getPlayer(id)
                 _name.value = player.name
                 _age.value = player.age.toString()
@@ -82,5 +88,9 @@ class PlayerDetailViewModel @Inject constructor(
     sealed class BottomSheetEvent {
         data class Show(val item: PlayerAttributeEntity) : BottomSheetEvent()
         data object Hide : BottomSheetEvent()
+    }
+
+    sealed class Event {
+        data object Finish : Event()
     }
 }
