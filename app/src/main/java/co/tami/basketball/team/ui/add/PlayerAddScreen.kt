@@ -6,3 +6,7 @@ import androidx.compose.runtime.Composable
 fun PlayerScreen() {
 
 }
+@Composable
+fun PlayerName() {
+
+}
