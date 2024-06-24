@@ -23,7 +23,7 @@ class LoginDataSourceImpl(
                 authResult.user?.let { firebaseUser: FirebaseUser ->
                     Timber.i("FirebaseAuth Login Success : ${firebaseUser.uid}")
                     continuation.resume(firebaseUser.toUserData())
-                } ?: continuation.resumeWithException(Exception("login User is Null"))
+                } ?: continuation.resumeWithException(Exception("Login User is Null"))
 
             }.addOnFailureListener { exception: Exception ->
                 Timber.e("loginError : ${exception.message}")
