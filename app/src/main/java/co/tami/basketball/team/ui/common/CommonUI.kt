@@ -64,8 +64,8 @@ fun BackImage(
 ) {
     Image(
         modifier = modifier
-            .padding(8.dp)
-            .clickable { onBack?.invoke() },
+            .clickable { onBack?.invoke() }
+            .padding(8.dp),
         painter = painterResource(id = R.drawable.ic_arrow_back_24dp),
         contentDescription = stringResource(id = R.string.back),
         colorFilter = ColorFilter.tint(color = MaterialTheme.colorScheme.onBackground)

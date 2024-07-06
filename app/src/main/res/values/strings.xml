@@ -4,4 +4,5 @@
 
     <!-- PlayerAddStrings -->
     <string name="player_name_placeholder">선수 이름을 입력해 주세요.</string>
+    <string name="player_name_info_text">"안녕하세요!\n등록 하려는 선수 이름을 입력해 주세요."</string>
 </resources>
