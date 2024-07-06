@@ -10,7 +10,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import co.tami.basketball.team.ui.add.PlayerAddScreen
 import co.tami.basketball.team.ui.detail.PlayerDetailContainer
-import co.tami.basketball.team.ui.list.PlayerListContainer
 
 
 @Composable
