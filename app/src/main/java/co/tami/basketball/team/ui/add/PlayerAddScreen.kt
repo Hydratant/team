@@ -2,10 +2,12 @@ package co.tami.basketball.team.ui.add
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -61,7 +63,8 @@ fun PlayerNavHost(
 fun PlayerAddColumn(
     infoText: String,
     body: @Composable () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onNextClick: () -> Unit = {}
 ) {
     Column(modifier = modifier) {
 
@@ -74,6 +77,25 @@ fun PlayerAddColumn(
         )
         VerticalSpacer(size = 24.dp)
         body()
+
+        Spacer(modifier = Modifier.weight(1f))
+
+        OutlinedButton(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(
+                    horizontal = 24.dp,
+                    vertical = 24.dp
+                ),
+            onClick = onNextClick
+        ) {
+            Text(
+                modifier = Modifier.padding(8.dp),
+                text = stringResource(id = R.string.next)
+            )
+        }
+
+
     }
 }
 
